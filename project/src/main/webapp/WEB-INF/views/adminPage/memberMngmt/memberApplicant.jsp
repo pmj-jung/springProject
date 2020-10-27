@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/HEADER.jsp"%>
 
-<link rel="stylesheet" href="css/headNmenu.css">
-<link rel="stylesheet" href="css/board.css">
-<script src="js/menu.js"></script>
-<script src="js/table.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/headNmenu.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
+<script src="${pageContext.request.contextPath}/js/menu.js"></script>
+<script src="${pageContext.request.contextPath}/js/table.js"></script>
 <style>
     tr:first-child {
         background-color: #005AA7;
