@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	
+	<select id="checkLogin" parameterType="membervo" resultType="membervo">
+		SELECT 
+		mem_id AS memID,
+		mem_name AS memName,
+		mem_num AS memNum,
+		mem_buseo AS memBuseoCode,
+		mem_grade AS memGradeCode,
+		mem_level AS memLevel,
+		mem_confirm AS memConfirm,
+		buseo_name AS memBuseoName,
+		grade_name AS memGradeName 
+		FROM member 
+		LEFT JOIN member_buseo ON mem_buseo = buseo_id 
+		LEFT JOIN member_grade ON mem_grade = grade_id 
+		WHERE mem_id = #{memID} AND mem_pwd = #{memPwd}
+	</select>
+
+</mapper>
