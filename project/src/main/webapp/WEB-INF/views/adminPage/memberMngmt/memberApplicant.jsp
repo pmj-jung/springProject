@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/HEADER.jsp"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/headNmenu.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
 <script src="${pageContext.request.contextPath}/js/menu.js"></script>
@@ -47,36 +47,31 @@
                 <table>
                     <tr class="center">
                         <td class="td-3"><input type="checkbox"></td>
-                        <td class="td-8">신청일</td>
-                        <td class="td-8">신청 아이디</td>
-                        <td class="td-8">신청자</td>
+                        <td class="td-10">신청일</td>
+                        <td class="td-12">신청 아이디</td>
+                        <td class="td-10">신청자</td>
+                        <td class="td-10">사번</td>
                         <td class="td-8">부서</td>
-                        <td class="td-15">이메일</td>
-                        <td class="td-15">전화번호</td>
-                        <td class="">거부사유</td>
-                        <td class="">관리</td>
+                        <td class="td-8">직급</td>
+                        <td class="td-10">입사일</td>
+                        <td class="td-15">관리</td>
                     </tr>
-                    <tr class="center">
-                        <td><input type="checkbox"></td>
-                        <td>2020/09/04</td>
-                        <td>allwid4993</td>
-                        <td>이신입</td>
-                        <td>영업2팀</td>
-                        <td>kim4one@jyp.co.kr</td>
-                        <td>01055783321</td>
-                        <td>
-                            <select name="" id="" class="sel-100">
-                                <option value="">사유1</option>
-                                <option value="">사유2</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="button" class="s-btn-on">승인</button>
-                            <button type="button" class="s-btn-off">거부</button>
-                            <button type="button" class="s-btn-del">삭제</button>
-                        </td>
-                    </tr>
-                    
+                    <c:forEach items="${list}" var="mem">
+	                    <tr class="center">
+	                        <td><input type="checkbox"></td>
+	                        <td>${mem.memRegdate}</td>
+	                        <td>${mem.memID}</td>
+	                        <td>${mem.memName}</td>
+	                        <td>${mem.memNum}</td>
+	                        <td>${mem.memBuseoName}</td>
+	                        <td>${mem.memGradeName}</td>
+	                        <td>${mem.memEntdate}</td>
+	                        <td>
+	                            <button onClick="changeConfirm('${mem.num}');" type="button" class="s-btn-on">승인</button>
+	                            <button type="button" class="s-btn-off">거부</button>
+	                        </td>
+	                    </tr>
+                    </c:forEach>
 
                 </table>
             </div>
@@ -99,4 +94,32 @@
         </div>
     </main>
 </body>
+<script>
+	function changeConfirm(num){
+	    var msg = "선택하신 회원의 승인여부를 변경합니다.\n변경하시겠습니까?";
+	    if( confirm(msg) ){
+	
+	        var formData = {
+	            num         :   num
+	        }
+	
+	        $.ajax({
+	            url     : "${pageContext.request.contextPath}/changeConfirm",
+	            type    : "POST",
+	            data    :  formData,
+	            success :   function(resData){
+	                if(resData == "success"){
+	                    alert("승인이 처리되었습니다.");
+	                }
+	            },
+	            error   : function(){
+	                alert("승인처리에 실패했습니다.");
+	            },
+	            complete : function(){
+	            	window.location.reload();
+	            }
+	        });
+	    }
+	}
+</script>
 </html>

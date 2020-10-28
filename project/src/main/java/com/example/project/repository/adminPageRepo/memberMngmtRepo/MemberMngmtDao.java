@@ -1,5 +1,7 @@
 package com.example.project.repository.adminPageRepo.memberMngmtRepo;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -7,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.example.project.model.MemberVO;
 
 @Repository
-public class MemberInsertDao {
+public class MemberMngmtDao {
 	
 	@Autowired
 	SqlSession sqlSession;
@@ -18,5 +20,13 @@ public class MemberInsertDao {
 	
 	public void setMemOthers(MemberVO mvo) {
 		sqlSession.insert("member.setMemOthers",mvo);
+	}
+	
+	public List<MemberVO> getMemApplicant() {
+		return sqlSession.selectList("member.getMemApplicant");
+	}
+	
+	public void changeConfirm(int num) {
+		sqlSession.update("member.changeConfirm",num);
 	}
 }

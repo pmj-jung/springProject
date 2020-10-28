@@ -72,4 +72,33 @@
 		num_fk			= #{numFK}
 	</insert>
 	
+	<!-- ""미승인 회원"" 리스트 가져오기 -->
+	<select id="getMemApplicant" resultType="membervo">
+		SELECT 
+		mem_regdate AS memRegdate,
+		mem_id AS memID,
+		mem_name AS memName,
+		mem_num AS memNum,
+		mem_buseo AS memBuseoCode,
+		B.buseo_name AS memBuseoName,
+		mem_grade AS memGradeCode,
+		G.grade_name AS memGradeName,
+		mem_entdate AS memEntdate,
+		
+		mem_confirm AS memConfirm,
+		num AS num 
+		FROM member M, member_buseo B, member_grade G 
+		WHERE M.mem_buseo = B.buseo_id AND 
+		M.mem_grade = G.grade_id AND 
+		M.mem_confirm = 'N' 
+		ORDER BY num DESC
+	</select>
+	
+	<!-- 미승인회원 '승인'으로 업데이트 -->
+	<update id="changeConfirm" parameterType="int">
+		UPDATE member 
+		SET mem_confirm	= 'Y' 
+		WHERE num = #{num}
+	</update>
+	
 </mapper>

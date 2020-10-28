@@ -90,15 +90,9 @@
                                     <td>성별</td>
                                     <td class="p-lr5">
 								        <select name="memGender" id="memGender" class="sel-100" required tabindex="5">
-								        	<c:if test="${memOne.memGender eq 'M'}">
-								                <option value="${memOne.memGender}">남자</option>
-								                <option value="F">여자</option>
-								            </c:if>
-								            <c:if test="${memOne.memGender eq 'F'}">
-								                <option value="${memOne.memGender}">여자</option>
-								                <option value="M">남자</option>
-								            </c:if>
-								        </select>
+							                <option value="M" <c:if test="${memOne.memGender eq 'M'}">selected</c:if> >남자</option>
+							                <option value="F" <c:if test="${memOne.memGender eq 'F'}">selected</c:if> >여자</option>
+							            </select>
                                     </td>
                                     <td>사번</td>
                                     <td class="p-lr5">
