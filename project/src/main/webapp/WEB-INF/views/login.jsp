@@ -14,7 +14,7 @@
             <h1 class="center p-tb20">Login</h1>
             <div class="login-box p20">
 			
-                <form id="frm" name="frm" class="login-form" method="POST" autocomplete="off">
+                <form id="login-form" name="login-form" class="login-form" method="POST" autocomplete="off">
                 	<div name="checkLogin" id="checkLogin" class="center"></div>
                     <div class="login-input p-tb10">
                         <input type="text" name="memID" id="memID" class="memID p-tb10 p-lr5" placeholder="아이디" autofocus required />
@@ -38,13 +38,11 @@
     </main>
 </body>
 <script>
-$(function() {
-	$("#btn").click(function() {
-		
+	function login(){
 		$.ajax({
 			url		: "${pageContext.request.contextPath}/login",
 			type	: "POST",
-			data 	: $("#frm").serialize(),
+			data 	: $("#login-form").serialize(),
 			success	: function(resData) {
 				if( resData == "failure" ) {
 					$("#checkLogin").html("등록된 사용자가 아닙니다.");
@@ -53,7 +51,7 @@ $(function() {
 					
 				}else if( resData == "needConfirm" ){
 					$("#checkLogin").html("승인되지 않은 사용자입니다.<br/>관리자에게 문의하세요.");
-
+	
 				}else{
 					alert("로그인 되었습니다.");
 					window.location.href = "${pageContext.request.contextPath}/userhome";
@@ -63,7 +61,18 @@ $(function() {
 				alert("시스템 오류");
 			}
 		});
+	}
+	
+	$(function() {
+		$("#login-form").keypress(function(e){
+			if(e.keyCode == 13){
+				login();
+			}
+		});
+		
+		$("#btn").click(function() {
+			login();
+		});
 	});
-});
 </script>
 </html>

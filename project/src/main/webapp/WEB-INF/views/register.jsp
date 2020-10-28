@@ -9,7 +9,7 @@
         </div>
     </header>
     <main class="p-tb20">
-        <form onsubmit="return checkPwd();" method="POST" class="register p-tb20 p-lr40 flex flex-justify flex-wrap" autocomplete="off">
+        <form id="frm" onsubmit="return checkPwd();" method="POST" class="register p-tb20 p-lr40 flex flex-justify flex-wrap" autocomplete="off">
             <div class="" style="width:100%;">
                 <div class="h2-wrap">
                     <h2 class="center">개인정보</h2>
@@ -17,7 +17,7 @@
                 <p>아이디</p>
                 <span id="checkID" style="color:#f00;"></span>
                 <input type="text" name="memID" id="memID" class="memID" 
-                placeholder="" required maxlength="12" tabindex="1">
+                placeholder="" required maxlength="15" tabindex="1">
 				
 				
 				<div id="checkPwd" style="color:#f00;"></div>
@@ -36,7 +36,7 @@
                 <div class="name-wrap flex flex-justify">
                     <div class="p-lr3">
                         <p>이름</p>
-                        <input type="text" name="memName" id="memName" class="memName" required maxlength="6" tabindex="4">
+                        <input type="text" name="memName" id="memName" class="memName" required maxlength="5" tabindex="4">
                     </div>
                     <div class="p-lr3">
                         <p>성별</p>

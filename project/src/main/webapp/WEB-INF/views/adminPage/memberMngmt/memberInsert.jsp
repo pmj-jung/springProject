@@ -69,6 +69,8 @@
                                     <button type="reset" class="s-btn-off">삭제</button>
                                 </div>
                             </div>
+                            <!-- 보이면안되지만 필요한 정보(누구의 정보인지 식별해줌). form 안에 만들기 -->
+                            <input type="hidden" name="numFK" id="numFK" value="${memOne.num}" />
                             <table class="upperInfoTbl">
                                 <tr class="center">
                                     <td class="td-10">이름</td>
@@ -87,10 +89,16 @@
                                 <tr class="center">
                                     <td>성별</td>
                                     <td class="p-lr5">
-                                        <select name="memGender" id="memGender" class="sel-100" >
-                                            <option value="m">남자</option>
-                                            <option value="f">여자</option>
-                                        </select>
+								        <select name="memGender" id="memGender" class="sel-100" required tabindex="5">
+								        	<c:if test="${memOne.memGender eq 'M'}">
+								                <option value="${memOne.memGender}">남자</option>
+								                <option value="F">여자</option>
+								            </c:if>
+								            <c:if test="${memOne.memGender eq 'F'}">
+								                <option value="${memOne.memGender}">여자</option>
+								                <option value="M">남자</option>
+								            </c:if>
+								        </select>
                                     </td>
                                     <td>사번</td>
                                     <td class="p-lr5">
@@ -123,9 +131,9 @@
                                     <td>채용형태</td>
                                     <td class="p-lr5">
                                         <select name="memRecruit" id="memRecruit" class="sel-100">
-                                            <option value="">인턴</option>
-                                            <option value="">임시직</option>
-                                            <option value="">정규직</option>
+                                            <option value="Intern">인턴</option>
+                                            <option value="Temp">임시직</option>
+                                            <option value="Full">정규직</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -263,4 +271,6 @@
         </div>
     </main>
 </body>
+<script>
+</script>
 </html>

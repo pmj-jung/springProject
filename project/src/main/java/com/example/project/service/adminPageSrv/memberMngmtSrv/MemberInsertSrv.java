@@ -15,4 +15,8 @@ public class MemberInsertSrv {
 	public MemberVO getMemOne(String sessionNum) {
 		return memInsertDao.getMemOne(sessionNum);
 	}
+	
+	public void setMemOthers(MemberVO mvo) {
+		memInsertDao.setMemOthers(mvo);
+	}
 }

@@ -20,15 +20,17 @@
 		WHERE mem_id = #{memID} AND mem_pwd = #{memPwd}
 	</select>
 	
-	<!-- 회원정보 한개 불러오기 -->
+	<!-- 사용자정보 한개 불러오기 -->
 	<select id="getMemOne" parameterType="String" resultType="membervo">
 		
 		SELECT 
+		num AS num,
 		mem_name AS memName,
 		mem_buseo AS memBuseoCode,
 		B.buseo_name AS memBuseoName,
 		mem_grade AS memGradeCode,
 		G.grade_name AS memGradeName,
+		mem_gender AS memGender,
 		mem_num AS memNum,
 		mem_entdate AS memEntdate 
 		FROM member M, member_buseo B, member_grade G 
@@ -37,5 +39,37 @@
 		mem_num = #{sessionNum}
 	</select>
 	
+	<!-- 관리자페이지에서 사용자정보 입력하기(member_others 테이블에 추가) -->
+	<insert id="setMemOthers" parameterType="membervo">
+		INSERT INTO member_others SET 
+		mem_cp		= #{memCp},
+		mem_tel		= #{memTel},
+		mem_email	= #{memEmail},
+		mem_birth	= #{memBirth},
+		mem_recruit	= #{memRecruit},
+		mem_addr	= #{memAddr},
+		mem_married	= #{memMarried},
+		mem_service	= #{memService},
+		mem_hobby	= #{memHobby},
+		mem_speciality		= #{memSpeciality}, 
+		mem_disability		= #{memDisability},
+		mem_disability_num	= #{memDisabilityNum},
+		mem_reward		= #{memReward},
+		mem_reward_num	= #{memRewardNum},
+		mem_final_edu	= #{memFinalEdu},
+		mem_height	= #{memHeight},
+		mem_weight	= #{memWeight},
+		mem_religion	= #{memReligion},
+		mem_license1	= #{memLicense1},
+		mem_license2	= #{memLicense2},
+		mem_license3	= #{memLicense3},
+		mem_license4	= #{memLicense4},
+		mem_lang1		= #{memLang1},
+		mem_lang2		= #{memLang2},
+		mem_lang3		= #{memLang3},
+		mem_lang4		= #{memLang4},
+		mem_comment		= #{memComment},
+		num_fk			= #{numFK}
+	</insert>
 	
 </mapper>

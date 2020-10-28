@@ -15,4 +15,8 @@ public class MemberInsertDao {
 	public MemberVO getMemOne(String sessionNum) {
 		return sqlSession.selectOne("member.getMemOne",sessionNum);
 	}
+	
+	public void setMemOthers(MemberVO mvo) {
+		sqlSession.insert("member.setMemOthers",mvo);
+	}
 }
