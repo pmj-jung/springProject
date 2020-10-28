@@ -61,4 +61,20 @@ public class RegisterCtr {
 		List<GradeVO> list = registerSrv.getGrade();
 		return list;
 	}
+	
+	// 아이디 중복 확인
+	@RequestMapping(value="/checkID", method = RequestMethod.POST)
+	@ResponseBody
+	public String checkID(MemberVO mvo) {
+		String msg;
+		//count == 1 : DB에 해당 아이디가 존재한다
+		int count = registerSrv.checkID(mvo);
+		if( count > 0 ) {
+			msg = "exists";
+		}else {
+			msg = "notExists";
+		}
+		System.out.println(msg);
+		return msg;
+	}
 }

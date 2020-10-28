@@ -29,7 +29,6 @@
 		B.buseo_name AS memBuseoName,
 		mem_grade AS memGradeCode,
 		G.grade_name AS memGradeName,
-		mem_gender AS memGender,
 		mem_num AS memNum,
 		mem_entdate AS memEntdate 
 		FROM member M, member_buseo B, member_grade G 

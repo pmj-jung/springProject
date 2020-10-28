@@ -15,9 +15,12 @@
                     <h2 class="center">개인정보</h2>
                 </div>
                 <p>아이디</p>
+                <span id="checkID" style="color:#f00;"></span>
                 <input type="text" name="memID" id="memID" class="memID" 
                 placeholder="" required maxlength="12" tabindex="1">
-
+				
+				
+				<div id="checkPwd" style="color:#f00;"></div>
                 <div class="pwd-wrap flex flex-justify">
                     <div class="p-lr3">
                         <p>비밀번호</p>
@@ -39,8 +42,8 @@
                         <p>성별</p>
                         <select name="memGender" id="memGender" required tabindex="5">
                             <option value="" disabled selected hidden>선택</option>
-                            <option value="m">남자</option>
-                            <option value="f">여자</option>
+                            <option value="M">남자</option>
+                            <option value="F">여자</option>
                         </select>
                     </div>
                 </div>
@@ -50,7 +53,7 @@
                     <input oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  
                     type="text" name="memJumin" id="memJumin" style="width:45%;" required maxlength="6"  tabindex="6">
                     <p style="line-height: 35px;">-</p>
-                    <input  oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
+                    <input oninput="this.value=this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
                     type="password" name="memJuminBack" id="memJuminBack" style="width:45%;" required maxlength="7" tabindex="7">
                 </div>
                 
@@ -138,24 +141,26 @@
     function checkPwd(){
         var pwd = $("#memPwd");
         var pwdCheck = $("#memPwdCheck");
+        var getPwdCheck= RegExp(/^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,16}$/);
 
-        
 		if (pwd.val().length > 15 || pwd.val().length < 4) {
-			alert("비밀번호는 10자리 이상 15자리 이하로 입력하셔야 합니다.");
+			$("#checkPwd").html("비밀번호는 8자 이상, 16자 이하여야 하며, 소문자와 숫자가 하나이상 포함되어야 합니다.");
 			pwd.val("");
+			pwdCheck.val("");
 			pwd.focus();
 			return false;
 		}
-		
-		if (pwdCheck.val().length > 15 || pwdCheck.val().length < 4) {
-			alert("비밀번호 확인은 10자리 이상 15자리 이하로 입력하셔야 합니다.");
-			pwdCheck.val("");
-			pwdCheck.focus();
-			return false;
-		}
+
+        if(!getPwdCheck.test(pwd.val())){
+        	$("#checkPwd").html("비밀번호는 8자 이상, 16자 이하여야 하며,소문자와 숫자가 하나이상 포함되어야 합니다.");
+            pwd.val("");
+            pwdCheck.val("");
+           	pwd.focus();
+            return false;
+        }
 		
 		if(pwd.val() != pwdCheck.val()) {
-			alert("비밀번호가 다릅니다. 확인하세요.");
+        	$("#checkPwd").html("비밀번호가 다릅니다. 확인하세요.");
 			pwd.val("");
 			pwdCheck.val("");
 			pwd.focus();
@@ -164,10 +169,35 @@
 
         alert("회원가입이 완료되었습니다.");
     }
+
+    function checkID(){
+        $.ajax({
+            url         : "${pageContext.request.contextPath}/checkID",
+            type        : "POST",
+            data        : { memID : $("#memID").val() },
+            success     : function(resData){
+                if( resData == "notExists" ){
+                    $("#checkID").html("사용가능한 아이디입니다.");
+                }else{
+                    $("#checkID").html("중복된 아이디입니다.");
+                    $("#memID").val("");
+                    $("#memID").focus();
+                }
+            },
+            error       : function(){
+                alert("시스템 에러");
+            },
+            complete    : function(){
+            }
+        });
+    }
 	
     $(function(){
         loadBuseo();
         loadGrade();
+        $("#memID").blur(function(){
+			checkID();
+        });
     });
 </script>
 </html>

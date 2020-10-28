@@ -27,4 +27,8 @@ public class RegisterSrv {
 	public void setMember(MemberVO mvo) {
 		registerDao.setMember(mvo);
 	}
+	
+	public int checkID(MemberVO mvo) {
+		return registerDao.checkID(mvo);
+	}
 }

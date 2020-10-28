@@ -28,4 +28,7 @@ public class RegisterDao {
 		sqlSession.insert("register.setMember",mvo);
 	}
 	
+	public int checkID(MemberVO mvo) {
+		return sqlSession.selectOne("register.checkID", mvo);
+	}
 }

@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 	
+	<!-- 로그인 검사 & session에 회원정보 보내기 -->
 	<select id="checkLogin" parameterType="membervo" resultType="membervo">
 		SELECT 
 		mem_id AS memID,
@@ -18,5 +19,23 @@
 		LEFT JOIN member_grade ON mem_grade = grade_id 
 		WHERE mem_id = #{memID} AND mem_pwd = #{memPwd}
 	</select>
-
+	
+	<!-- 회원정보 한개 불러오기 -->
+	<select id="getMemOne" parameterType="String" resultType="membervo">
+		
+		SELECT 
+		mem_name AS memName,
+		mem_buseo AS memBuseoCode,
+		B.buseo_name AS memBuseoName,
+		mem_grade AS memGradeCode,
+		G.grade_name AS memGradeName,
+		mem_num AS memNum,
+		mem_entdate AS memEntdate 
+		FROM member M, member_buseo B, member_grade G 
+		WHERE M.mem_buseo = B.buseo_id AND 
+		M.mem_grade = G.grade_id AND 
+		mem_num = #{sessionNum}
+	</select>
+	
+	
 </mapper>
