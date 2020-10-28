@@ -74,7 +74,6 @@ public class RegisterCtr {
 		}else {
 			msg = "notExists";
 		}
-		System.out.println(msg);
 		return msg;
 	}
 }
