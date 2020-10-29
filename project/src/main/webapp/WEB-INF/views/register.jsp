@@ -9,29 +9,29 @@
         </div>
     </header>
     <main class="p-tb20">
-        <form id="frm" onsubmit="return checkPwd();" method="POST" class="register p-tb20 p-lr40 flex flex-justify flex-wrap" autocomplete="off">
+        <form id="frm" onsubmit="return isPwdSame();" method="POST" class="register p-tb20 p-lr40 flex flex-justify flex-wrap" autocomplete="off">
             <div class="" style="width:100%;">
                 <div class="h2-wrap">
                     <h2 class="center">개인정보</h2>
                 </div>
                 <p>아이디</p>
-                <span id="checkID" style="color:#f00;"></span>
                 <input type="text" name="memID" id="memID" class="memID" 
-                placeholder="" required maxlength="15" tabindex="1">
+                placeholder="" required tabindex="1">
+                <div id="checkID" style="color:#f00; padding-bottom:10px;"></div>
 				
 				
-				<div id="checkPwd" style="color:#f00;"></div>
                 <div class="pwd-wrap flex flex-justify">
                     <div class="p-lr3">
                         <p>비밀번호</p>
                         <input type="password" name="memPwd" id="memPwd" class="memPwd" 
-                        placeholder="" required maxlength="16" tabindex="2">
+                        required tabindex="2">
                     </div>
                     <div class="p-lr3">
                         <p>비밀번호 확인</p>
                         <input type="password" name="memPwdCheck" id="memPwdCheck" class="memPwdCheck" required tabindex="3">
                     </div>
                 </div>
+                <div id="checkPwd" style="color:#f00;"></div>
 
                 <div class="name-wrap flex flex-justify">
                     <div class="p-lr3">
@@ -138,38 +138,54 @@
         });
     }
 
+	// PWD 정규식 확인
     function checkPwd(){
         var pwd = $("#memPwd");
         var pwdCheck = $("#memPwdCheck");
-        var getPwdCheck= RegExp(/^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,16}$/);
+        var getPwdCheck= RegExp(/^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z!@#]{8,16}$/);
+        var getHangle = RegExp(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/);
 
-		if (pwd.val().length > 15 || pwd.val().length < 4) {
-			$("#checkPwd").html("비밀번호는 8자 이상, 16자 이하여야 하며, 소문자와 숫자가 하나이상 포함되어야 합니다.");
-			pwd.val("");
-			pwdCheck.val("");
-			pwd.focus();
-			return false;
-		}
-
-        if(!getPwdCheck.test(pwd.val())){
-        	$("#checkPwd").html("비밀번호는 8자 이상, 16자 이하여야 하며,소문자와 숫자가 하나이상 포함되어야 합니다.");
+        if(!getPwdCheck.test(pwd.val()) || getHangle.test(pwd.val())){
+        	$("#checkPwd").html("8~16자의 영문 대소문자와 숫자,특수문자(!@#)를 사용하세요.");
             pwd.val("");
             pwdCheck.val("");
-           	pwd.focus();
             return false;
         }
+
+        $("#checkPwd").html("");
+    }
+
+	// (onSubmit) 비밀번호 재입력과 동일여부 확인
+	function isPwdSame(){
+		var pwd = $("#memPwd");
+        var pwdCheck = $("#memPwdCheck");
 		
 		if(pwd.val() != pwdCheck.val()) {
         	$("#checkPwd").html("비밀번호가 다릅니다. 확인하세요.");
-			pwd.val("");
 			pwdCheck.val("");
-			pwd.focus();
 			return false;
 		}
 
-        alert("회원가입이 완료되었습니다.");
-    }
+		alert("회원가입이 완료되었습니다.");
+	}
 
+	// ID 정규식 확인
+    function RegExpID(){
+        var memID = $("#memID");
+        var getIDCheck = RegExp(/^(?=.*[a-z])(?=.*[0-9])[0-9a-z!@#]{6,18}$/);
+        var getHangle = RegExp(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/);
+        
+        if(!getIDCheck.test(memID.val()) || getHangle.test(memID.val())){
+            $("#checkID").html("6~18자의 영문 소문자와 숫자를 사용하세요.");
+            memID.val("");
+            return false;
+        }
+
+        $("#checkID").html("");
+        return true;
+    }
+	
+    // ID 중복확인
     function checkID(){
         $.ajax({
             url         : "${pageContext.request.contextPath}/checkID",
@@ -181,7 +197,6 @@
                 }else{
                     $("#checkID").html("중복된 아이디입니다.");
                     $("#memID").val("");
-                    $("#memID").focus();
                 }
             },
             error       : function(){
@@ -196,7 +211,13 @@
         loadBuseo();
         loadGrade();
         $("#memID").blur(function(){
-			checkID();
+			RegExpID();
+			if(RegExpID() == true){
+				checkID();
+			}
+        });
+        $("#memPwd").blur(function(){
+			checkPwd();
         });
     });
 </script>
