@@ -20,7 +20,6 @@
     <%@ include file="/WEB-INF/views/include/ADMIN_LOGOnINFO.jsp" %>
     <main>
     	<%@ include file="/WEB-INF/views/include/ADMIN_MENU.jsp" %>
-    	
         <div class="mainContent">
             <div class="contentHead">
                 <h3 class="font18">사용자 관리 > 사용자 신청 목록</h3>
@@ -29,24 +28,26 @@
                 <div class="btns">
                     <button type="button" class="btn-on">선택승인</button>
                     <button type="button" class="btn-off">선택거부</button>
-                    <button type="button" class="btn-del">선택삭제</button>
                 </div>
                 <div class="search-box">
-                    <form name="search-frm" class="search-frm" method="post" action="search.do">
-                        <select class="sel">
-                            <option value="">아이디</option>
-                            <option value="">신청자</option>
-                            <option value="">부서명</option>
+                    <form name="search-frm" class="search-frm" method="post" 
+                    action="${pageContext.request.contextPath}/memberApplicant">
+                        <select name="searchOpt" class="sel">
+                            <option value="mem_id" <c:if test="${searchOpt eq 'mem_id'}">selected</c:if> >아이디</option>
+                            <option value="mem_name" <c:if test="${searchOpt eq 'mem_name'}">selected</c:if> >신청자명</option>
+                            <option value="mem_num" <c:if test="${searchOpt eq 'mem_num'}">selected</c:if> >사원번호</option>
+                            <option value="all" <c:if test="${searchOpt eq 'all'}">selected</c:if> >전체검색</option>
                         </select>
-                        <input name="search" type="search" class="input" maxlength="20" tabindex="1" />
-                        <button type="submit" class="search-btn">검색</button>
+                        <input value="${words}" type="text" name="words" class="input" maxlength="20" tabindex="1" />
+                        <button type="submit" class="search-btn" tabindex="2">검색</button>
                     </form>
                 </div>
             </div>
+            <div>승인 대기 회원 수 : ${count} 명</div>
             <div class="member-tbl">
                 <table>
                     <tr class="center">
-                        <td class="td-3"><input type="checkbox"></td>
+                        <td class="td-3"><input type="checkbox" id="chkAll" /></td>
                         <td class="td-10">신청일</td>
                         <td class="td-12">신청 아이디</td>
                         <td class="td-10">신청자</td>
@@ -56,9 +57,14 @@
                         <td class="td-10">입사일</td>
                         <td class="td-15">관리</td>
                     </tr>
+                    <c:if test="${count == 0}">
+						<tr id="noCss">
+							<td colspan="9" style="height:200px;" class="center weight700">승인 대기 회원이 없습니다.</td>
+						</tr>
+					</c:if>
                     <c:forEach items="${list}" var="mem">
 	                    <tr class="center">
-	                        <td><input type="checkbox"></td>
+	                        <td><input type="checkbox" name="chk" ></td>
 	                        <td>${mem.memRegdate}</td>
 	                        <td>${mem.memID}</td>
 	                        <td>${mem.memName}</td>
@@ -95,10 +101,17 @@
     </main>
 </body>
 <script>
+
+	document.getElementById('chkAll').onclick = function(){
+	    var chk = document.getElementsByName('chk');
+	    for( var checkbox of chk ){
+	        checkbox.checked = this.checked;
+	    }
+	}
+
 	function changeConfirm(num){
 	    var msg = "선택하신 회원의 승인여부를 변경합니다.\n변경하시겠습니까?";
 	    if( confirm(msg) ){
-	
 	        var formData = {
 	            num         :   num
 	        }

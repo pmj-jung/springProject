@@ -22,11 +22,15 @@ public class MemberMngmtSrv {
 		memMngmtDao.setMemOthers(mvo);
 	}
 	
-	public List<MemberVO> getMemApplicant() {
-		return memMngmtDao.getMemApplicant();
+	public List<MemberVO> getMemApplicant(String searchOpt, String words) {
+		return memMngmtDao.getMemApplicant(searchOpt, words);
 	}
 	
 	public void changeConfirm(int num) {
 		memMngmtDao.changeConfirm(num);
+	}
+	
+	public int getApplicantCount(String searchOpt, String words) {
+		return memMngmtDao.getApplicantCount(searchOpt, words);
 	}
 }

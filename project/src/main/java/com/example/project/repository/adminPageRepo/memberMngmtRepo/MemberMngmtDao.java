@@ -1,5 +1,6 @@
 package com.example.project.repository.adminPageRepo.memberMngmtRepo;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,11 +23,21 @@ public class MemberMngmtDao {
 		sqlSession.insert("member.setMemOthers",mvo);
 	}
 	
-	public List<MemberVO> getMemApplicant() {
-		return sqlSession.selectList("member.getMemApplicant");
+	public List<MemberVO> getMemApplicant(String searchOpt, String words) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchOpt",searchOpt);
+		map.put("words",words);
+		return sqlSession.selectList("member.getMemApplicant",map);
 	}
 	
 	public void changeConfirm(int num) {
 		sqlSession.update("member.changeConfirm",num);
+	}
+
+	public int getApplicantCount(String searchOpt, String words) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchOpt",searchOpt);
+		map.put("words",words);
+		return sqlSession.selectOne("member.getApplicantCount",map);
 	}
 }

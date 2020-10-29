@@ -72,8 +72,25 @@
 		num_fk			= #{numFK}
 	</insert>
 	
+	<!-- 미승인 회원 검색 -->
+	<sql id="search">
+		<choose>
+			<when test="words == ''"></when>
+			<when test="searchOpt == 'all'">
+				AND (
+				mem_id LIKE CONCAT('%', #{words} , '%') OR 
+				mem_name LIKE CONCAT('%', #{words} , '%') OR 
+				mem_num LIKE CONCAT('%', #{words} , '%')				
+				) 
+			</when>
+			<otherwise>
+				AND ${searchOpt} LIKE CONCAT('%',#{words},'%') 
+			</otherwise>
+		</choose>
+	</sql>
+	
 	<!-- ""미승인 회원"" 리스트 가져오기 -->
-	<select id="getMemApplicant" resultType="membervo">
+	<select id="getMemApplicant" parameterType="hashmap" resultType="membervo">
 		SELECT 
 		mem_regdate AS memRegdate,
 		mem_id AS memID,
@@ -91,6 +108,7 @@
 		WHERE M.mem_buseo = B.buseo_id AND 
 		M.mem_grade = G.grade_id AND 
 		M.mem_confirm = 'N' 
+		<include refid="search"></include> 
 		ORDER BY num DESC
 	</select>
 	
@@ -100,5 +118,13 @@
 		SET mem_confirm	= 'Y' 
 		WHERE num = #{num}
 	</update>
+	
+	<!-- 미승인회원 수 카운트 -->
+	<select id="getApplicantCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(num) 
+		FROM member 
+		WHERE mem_confirm = 'N' 
+		<include refid="search"></include>
+	</select>
 	
 </mapper>

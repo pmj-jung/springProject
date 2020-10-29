@@ -23,13 +23,22 @@ public class MemberMngmtCtr {
 
 	// '사용자 신청 목록' 페이지 & '미승인 회원' 리스트 불러오기
 	@RequestMapping("/memberApplicant")
-	public ModelAndView getMemApplicant() {
+	public ModelAndView getMemApplicant(
+			@RequestParam(defaultValue = "mem_id") String searchOpt, 
+			@RequestParam(defaultValue = "") String words
+			) {
 		
 		ModelAndView mav = new ModelAndView();
-		
-		List<MemberVO> list = memMngmtSrv.getMemApplicant();
-		
+		List<MemberVO> list = memMngmtSrv.getMemApplicant(searchOpt,words);
 		mav.addObject("list", list);
+		mav.addObject("searchOpt", searchOpt);
+		mav.addObject("words", words);
+		
+		/* 미승인 회원 수 */
+		int count = memMngmtSrv.getApplicantCount(searchOpt,words);
+		mav.addObject("count", count);
+		/* 미승인 회원 수 END */
+
 		mav.setViewName("adminPage/memberMngmt/memberApplicant");
 		return mav;
 	}
@@ -61,6 +70,12 @@ public class MemberMngmtCtr {
 	public String setMemOthers(MemberVO mvo) {
 		memMngmtSrv.setMemOthers(mvo);
 		return "redirect:/memberApplicant";
+	}
+	
+	// 사용자 목록 페이지 불러오기
+	@RequestMapping("/memberList")
+	public String getMemList() {
+		return "adminPage/memberMngmt/memberList";
 	}
 	
 }
