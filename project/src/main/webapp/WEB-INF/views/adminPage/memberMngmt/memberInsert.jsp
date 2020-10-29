@@ -62,11 +62,10 @@
                         <div class="upperArea flex flex-justify">
                             <div class="photoArea">
                                 <div class="photoImg">
-                                    <img src="images/idPhoto2.jpg">
+                                    <img ${pageContext.request.contextPath}/images/noPhoto.jpg" id="memPhotoImg" >
                                 </div>
                                 <div class="photoBtn center">
-                                    <button type="button" class="s-btn-on">등록</button>
-                                    <button type="reset" class="s-btn-off">삭제</button>
+                                    <input type="file" name="file" id="memPhoto" />
                                 </div>
                             </div>
                             <!-- 보이면안되지만 필요한 정보(누구의 정보인지 식별해줌). form 안에 만들기 -->
@@ -266,5 +265,20 @@
     </main>
 </body>
 <script>
+	function readImg(imgFile){
+	    if(imgFile.files && imgFile.files[0]){
+	        var reader = new FileReader();
+	        reader.onload = function(e){
+	            $("#memPhotoImg").attr("src", e.target.result);
+	        }
+	        reader.readAsDataURL(imgFile.files[0]);
+	    }
+	}
+	
+	$(function(){
+	    $("#memPhoto").change(function(){
+	        readImg(this);
+	    });
+	});
 </script>
 </html>

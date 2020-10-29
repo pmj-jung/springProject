@@ -2,6 +2,7 @@ package com.example.project.controller.adminPageCtr.memberMngmtCtr;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,10 @@ public class MemberMngmtCtr {
 
 	@Autowired
 	MemberMngmtSrv memMngmtSrv;
-
+	
+	@Resource(name="uploadPath")
+	private String uploadPath;
+	
 	// '사용자 신청 목록' 페이지 & '미승인 회원' 리스트 불러오기
 	@RequestMapping("/memberApplicant")
 	public ModelAndView getMemApplicant(

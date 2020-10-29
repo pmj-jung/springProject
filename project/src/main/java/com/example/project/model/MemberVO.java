@@ -24,6 +24,7 @@ public class MemberVO {
 	private Date memRegdate;
 	private int memLevel;
 	private String memConfirm;
+	private String memPhoto;
 	
 	private int ref; //사원번호 중복을 피하기 위한 변수
 	

@@ -21,6 +21,10 @@ mem_confirm char(1) default 'N',
 primary key(num)
 );
 
+//mem_photo 컬럼 삽입
+ALTER TABLE member ADD mem_photo varchar(100);
+
+
 // member 부서 테이블 만들기
 create table member_buseo(
 buseo_id varchar(5) not null,
