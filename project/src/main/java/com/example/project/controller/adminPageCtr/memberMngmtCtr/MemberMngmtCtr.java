@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,10 +49,26 @@ public class MemberMngmtCtr {
 	}
 	
 	// 회원 승인 하기
-	@RequestMapping(value = "/changeConfirm", method = RequestMethod.POST)
+	@RequestMapping(value = "/approveConfirm", method = RequestMethod.POST)
 	@ResponseBody
-	public String changeConfirm(@RequestParam int num) {
-		memMngmtSrv.changeConfirm(num);
+	public String approveConfirm(@RequestParam int num) {
+		memMngmtSrv.approveConfirm(num);
+		return "success";
+	}
+	
+	// 회원 승인 거부 하기 = 미승인 회원 DB에서 삭제
+	@RequestMapping(value = "/disapproveConfirm", method = RequestMethod.POST)
+	@ResponseBody
+	public String disapproveConfirm(@RequestParam int num) {
+		memMngmtSrv.disapproveConfirm(num);
+		return "success";
+	}
+	
+	// 체크 배열 테스트
+	@RequestMapping(value = "/chkApproveConfirm", method = RequestMethod.POST)
+	@ResponseBody
+	public String chkApproveConfirm(@RequestParam int[] chkArray) {
+		memMngmtSrv.chkApproveConfirm(chkArray);
 		return "success";
 	}
 	

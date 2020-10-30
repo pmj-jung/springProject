@@ -26,7 +26,7 @@
             </div>
             <div class="btn-wrap flex flex-justify">
                 <div class="btns">
-                    <button type="button" class="btn-on">선택승인</button>
+                    <button type="button" class="btn-on" onClick="chkApproveConfirm();">선택승인</button>
                     <button type="button" class="btn-off">선택거부</button>
                 </div>
                 <div class="search-box">
@@ -47,7 +47,7 @@
             <div class="member-tbl">
                 <table>
                     <tr class="center">
-                        <td class="td-3"><input type="checkbox" id="chkAll" /></td>
+                        <td class="td-3"><input type="checkbox" id="chkAll" data-uid="${mem.num}"/></td>
                         <td class="td-10">신청일</td>
                         <td class="td-12">신청 아이디</td>
                         <td class="td-10">신청자</td>
@@ -64,7 +64,7 @@
 					</c:if>
                     <c:forEach items="${list}" var="mem">
 	                    <tr class="center">
-	                        <td><input type="checkbox" name="chk" ></td>
+	                        <td><input type="checkbox" name="chk" value="${mem.num}" data-uid="${mem.num}"></td>
 	                        <td>${mem.memRegdate}</td>
 	                        <td>${mem.memID}</td>
 	                        <td>${mem.memName}</td>
@@ -73,12 +73,11 @@
 	                        <td>${mem.memGradeName}</td>
 	                        <td>${mem.memEntdate}</td>
 	                        <td>
-	                            <button onClick="changeConfirm('${mem.num}');" type="button" class="s-btn-on">승인</button>
-	                            <button type="button" class="s-btn-off">거부</button>
+	                            <button onClick="approveConfirm('${mem.num}');" type="button" class="s-btn-on">승인</button>
+	                            <button onClick="disapproveConfirm('${mem.num}');" type="button" class="s-btn-off">거부</button>
 	                        </td>
 	                    </tr>
                     </c:forEach>
-
                 </table>
             </div>
 
@@ -109,7 +108,7 @@
 	    }
 	}
 
-	function changeConfirm(num){
+	function approveConfirm(num){
 	    var msg = "선택하신 회원의 승인여부를 변경합니다.\n변경하시겠습니까?";
 	    if( confirm(msg) ){
 	        var formData = {
@@ -117,7 +116,7 @@
 	        }
 	
 	        $.ajax({
-	            url     : "${pageContext.request.contextPath}/changeConfirm",
+	            url     : "${pageContext.request.contextPath}/approveConfirm",
 	            type    : "POST",
 	            data    :  formData,
 	            success :   function(resData){
@@ -134,5 +133,64 @@
 	        });
 	    }
 	}
+
+	function disapproveConfirm(num){
+	    var msg = "해당 회원의 승인을 거부합니다.\n거부 시 해당 회원의 정보는 영구삭제됩니다.\n거부하시겠습니까?";
+	    if( confirm(msg) ){
+	        var formData = {
+	            num         :   num
+	        }
+	
+	        $.ajax({
+	            url     : "${pageContext.request.contextPath}/disapproveConfirm",
+	            type    : "POST",
+	            data    :  formData,
+	            success :   function(resData){
+	                if(resData == "success"){
+	                    alert("해당 회원의 정보가 성공적으로 삭제되었습니다.");
+	                }
+	            },
+	            error   : function(){
+	                alert("승인거부처리에 실패했습니다.");
+	            },
+	            complete : function(){
+	            	window.location.reload();
+	            }
+	        });
+	    }
+	}
+
+	function chkApproveConfirm(){
+        
+        var msg = "선택된 회원을 승인합니다.\n승인처리 하시겠습니까?";
+        if( confirm(msg) ){
+            var chkArray = new Array(); //배열생성
+            $("input:checkbox[name=chk]:checked").each(function(){
+                chkArray.push($(this).value);
+            });
+
+            var chkArrayData = {
+                "chkArray"    : chkArray
+            };
+
+            $.ajax({
+	            url : "${pageContext.request.contextPath}/chkApproveConfirm",
+	            type : "POST",
+	            data : chkArrayData,
+	            success : function(resData){
+	                if(resData == "success"){
+	                    alert("성공");
+	                }
+	            },
+	            error : function(){
+	                alert("에러");
+	            },
+	            complete	: function(){
+					window.location.reload();
+				}
+            });
+        }
+        
+    }
 </script>
 </html>

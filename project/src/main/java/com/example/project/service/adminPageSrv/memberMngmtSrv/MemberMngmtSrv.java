@@ -26,11 +26,19 @@ public class MemberMngmtSrv {
 		return memMngmtDao.getMemApplicant(searchOpt, words);
 	}
 	
-	public void changeConfirm(int num) {
-		memMngmtDao.changeConfirm(num);
+	public void approveConfirm(int num) {
+		memMngmtDao.approveConfirm(num);
+	}
+	
+	public void disapproveConfirm(int num) {
+		memMngmtDao.disapproveConfirm(num);
 	}
 	
 	public int getApplicantCount(String searchOpt, String words) {
 		return memMngmtDao.getApplicantCount(searchOpt, words);
+	}
+	
+	public void chkApproveConfirm(int[] chkArray) {
+		memMngmtDao.chkApproveConfirm(chkArray);
 	}
 }

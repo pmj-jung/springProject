@@ -113,11 +113,17 @@
 	</select>
 	
 	<!-- 미승인회원 '승인'으로 업데이트 -->
-	<update id="changeConfirm" parameterType="int">
+	<update id="approveConfirm" parameterType="int">
 		UPDATE member 
 		SET mem_confirm	= 'Y' 
 		WHERE num = #{num}
 	</update>
+	
+	<!-- 미승인회원 - '승인 거부'시 해당 회원 삭제 -->
+	<delete id="disapproveConfirm" parameterType="int">
+		DELETE FROM member 
+		WHERE mem_confirm = 'N' AND num = #{num}
+	</delete>
 	
 	<!-- 미승인회원 수 카운트 -->
 	<select id="getApplicantCount" parameterType="hashmap" resultType="int">
@@ -126,5 +132,15 @@
 		WHERE mem_confirm = 'N' 
 		<include refid="search"></include>
 	</select>
+	
+	<!-- 체크된 미승인회원 '승인'하기 -->
+	<update id="chkApproveConfirm">
+	    UPDATE member 
+	    SET mem_confirm = 'Y' 
+	    WHERE num IN 
+	    <foreach collection="chkArray" item="arr" open="(" close=")" separator=",">
+	    #{arr}
+	    </foreach>
+	</update>
 	
 </mapper>

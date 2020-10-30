@@ -30,8 +30,12 @@ public class MemberMngmtDao {
 		return sqlSession.selectList("member.getMemApplicant",map);
 	}
 	
-	public void changeConfirm(int num) {
-		sqlSession.update("member.changeConfirm",num);
+	public void approveConfirm(int num) {
+		sqlSession.update("member.approveConfirm",num);
+	}
+	
+	public void disapproveConfirm(int num) {
+		sqlSession.delete("member.disapproveConfirm",num);
 	}
 
 	public int getApplicantCount(String searchOpt, String words) {
@@ -39,5 +43,9 @@ public class MemberMngmtDao {
 		map.put("searchOpt",searchOpt);
 		map.put("words",words);
 		return sqlSession.selectOne("member.getApplicantCount",map);
+	}
+	
+	public void chkApproveConfirm(int[] chkArray) {
+		sqlSession.update("member.chkApproveConfirm", chkArray);
 	}
 }
