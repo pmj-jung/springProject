@@ -143,4 +143,40 @@
 	    </foreach>
 	</update>
 	
+	<!-- "모든 회원" 리스트 가져오기 -->
+	<select id="getMemList" parameterType="hashmap" resultType="membervo">
+		SELECT 
+		num AS num,
+		mem_buseo AS memBuseoCode,
+		B.buseo_name AS memBuseoName,
+		mem_grade AS memGradeCode,
+		G.grade_name AS memGradeName,
+		mem_num AS memNum,
+		mem_name AS memName,
+		mem_id AS memID,
+		mem_gender AS memGender,
+		mem_entdate AS memEntdate,
+		mem_regdate AS memRegdate,
+		mem_level AS memLevel,
+		mem_confirm AS memConfirm 
+		FROM member M, member_buseo B, member_grade G 
+		WHERE M.mem_buseo = B.buseo_id AND 
+		M.mem_grade = G.grade_id 
+		<include refid="search"></include> 
+		ORDER BY num DESC
+	</select>
+	
+	<!-- 전체회원 수 카운트 -->
+	<select id="getMemCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(num) 
+		FROM member 
+		<include refid="search"></include>
+	</select>
+	
+	<!-- 회원 성별 바꾸기 -->
+	<update id="changeGender" parameterType="hashmap">
+		UPDATE member 
+		SET mem_gender = #{memGender} 
+		WHERE num = #{num}
+	</update>
 </mapper>

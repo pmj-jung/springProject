@@ -8,7 +8,7 @@
 <c:if test="${sessionScope.memID == null}">
 	<script>
 		alert("등록된 사용자가 아닙니다.\n관리자에게 문의하세요");
-		location.href="${pageContext.request.contextPath}/login";
+		window.location.href="${pageContext.request.contextPath}";
 	</script>
 </c:if>
 <c:if test="${sessionScope.memLevel < 2}">

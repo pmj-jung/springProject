@@ -1,5 +1,6 @@
 package com.example.project.service.adminPageSrv.memberMngmtSrv;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,17 @@ public class MemberMngmtSrv {
 	
 	public void chkApproveConfirm(int[] chkArray) {
 		memMngmtDao.chkApproveConfirm(chkArray);
+	}
+	
+	public List<MemberVO> getMemList(String searchOpt, String words) {
+		return memMngmtDao.getMemList(searchOpt, words);
+	}
+	
+	public int getMemCount(String searchOpt, String words) {
+		return memMngmtDao.getMemCount(searchOpt, words);
+	}
+	
+	public void changeGender(String memGender, String num){
+		memMngmtDao.changeGender(memGender, num);
 	}
 }

@@ -48,4 +48,25 @@ public class MemberMngmtDao {
 	public void chkApproveConfirm(int[] chkArray) {
 		sqlSession.update("member.chkApproveConfirm", chkArray);
 	}
+	
+	public List<MemberVO> getMemList(String searchOpt, String words) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchOpt",searchOpt);
+		map.put("words",words);
+		return sqlSession.selectList("member.getMemList",map);
+	}
+	
+	public int getMemCount(String searchOpt, String words) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchOpt",searchOpt);
+		map.put("words",words);
+		return sqlSession.selectOne("member.getMemCount",map);
+	}
+	
+	public void changeGender(String memGender, String num){
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("memGender",memGender);
+		map.put("num",num);
+		sqlSession.update("member.changeGender",map);
+	}
 }

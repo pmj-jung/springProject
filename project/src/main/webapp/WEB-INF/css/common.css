@@ -192,18 +192,20 @@
 }
 
 /* select */
-select {
-    font-size:12px;
-    border-radius: 2px;
-    border:1px solid #eee;
-    width:150px;
-    height:35px;
-}
+
 .sel-35 {
     font-size:12px;
     border-radius: 2px;
     border:1px solid #d5d5d5;
     width:35%;
+    height:35px;
+}
+
+.sel-75 {
+    font-size:12px;
+    border-radius: 2px;
+    border:1px solid #d5d5d5;
+    width:75%;
     height:35px;
 }
 

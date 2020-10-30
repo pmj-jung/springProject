@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/WEB-INF/views/include/HEADER.jsp"%>
-<link rel="stylesheet" href="css/headNmenu.css">
-<link rel="stylesheet" href="css/board.css">
-<script src="js/menu.js"></script>
-<script src="js/table.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/headNmenu.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
+<script src="${pageContext.request.contextPath}/js/menu.js"></script>
+<script src="${pageContext.request.contextPath}/js/table.js"></script>
 <style>
     tr:first-child {
         background-color: #005AA7;
@@ -14,7 +15,6 @@
         background-color:#eff3f9;
     }
 </style>
-
 <body>
     <%@ include file="/WEB-INF/views/include/ADMIN_LOGOnINFO.jsp" %>
     <main>
@@ -25,53 +25,79 @@
             </div>
             <div class="btn-wrap flex flex-justify">
                 <div class="btns">
-                    <button type="button" class="btn-on" onclick="location.href='memberInsert.html'">사용자추가</button>
+                    <button type="button" class="btn-on" >사용자추가</button>
                     <button type="button" class="btn-off">선택삭제</button>
                 </div>
                 <div class="search-box">
-                    <form name="search-frm" class="search-frm" method="post" action="search.do">
-                        <select class="sel">
-                            <option value="">이름</option>
-                            <option value="">휴대전화</option>
-                            <option value="">부서명</option>
+                    <form name="search-frm" class="search-frm" method="post" 
+                    action="${pageContext.request.contextPath}/memberList">
+                        <select name="searchOpt" class="sel">
+                            <option value="mem_id" <c:if test="${searchOpt eq 'mem_id'}">selected</c:if> >아이디</option>
+                            <option value="mem_name" <c:if test="${searchOpt eq 'mem_name'}">selected</c:if> >신청자명</option>
+                            <option value="mem_num" <c:if test="${searchOpt eq 'mem_num'}">selected</c:if> >사원번호</option>
+                            <option value="all" <c:if test="${searchOpt eq 'all'}">selected</c:if> >전체검색</option>
                         </select>
-                        <input name="search" type="search" class="input" maxlength="20" tabindex="1" />
-                        <button type="submit" class="search-btn">사원검색</button>
+                        <input value="${words}" type="text" name="words" class="input" maxlength="20" tabindex="1" />
+                        <button type="submit" class="search-btn" tabindex="2">검색</button>
                     </form>
                 </div>
             </div>
+            <div>전체 회원 수 : ${count} 명</div>
             <div class="member-tbl">
                 <table>
                     <tr class="center">
-                        <td class="td-3"><input type="checkbox"></td>
+                        <td class="td-3"><input type="checkbox" id="chkAll" data-uid="${mem.num}" /></td>
                         <td class="td-5">번호</td>
+                        <td class="td-8">부서명</td>
+                        <td class="td-8">직급명</td>
+                        <td class="td-8">사원번호</td>
                         <td class="td-8">사원명</td>
-                        <td class="td-5">성별</td>
-                        <td class="td-8">부서</td>
-                        <td class="td-8">직급</td>
-                        <td class="td-22">이메일</td>
-                        <td class="td-10">전화번호</td>
-                        <td class="td-12">내선번호</td>
-                        <td class="td-7">입사일</td>
-                        <td class="">관리</td>
+                        <td class="td-8">아이디</td>
+                        <td class="td-8">성별</td>
+                        <td class="td-8">입사일</td>
+                        <td class="td-8">가입일</td>
+                        <td class="td-3">권한</td>
+                        <td class="td-3">승인</td>
+                        <td class="td-10">관리</td>
                     </tr>
-                    <tr class="center">
-                        <td><input type="checkbox"></td>
-                        <td>6</td>
-                        <td>김사원</td>
-                        <td>남자</td>
-                        <td>영업부</td>
-                        <td>사원</td>
-                        <td>kim4one@jyp.co.kr</td>
-                        <td>0510003333</td>
-                        <td>5292</td>
-                        <td>2020/09/04</td>
-                        <td>
-                            <button type="button" class="s-btn-on">수정</button>
-                            <button type="button" class="s-btn-off">삭제</button>
-                        </td>
-                    </tr>
-                    
+                    <c:forEach items="${list}" var="mem">
+	                    <tr class="center">
+	                        <td><input type="checkbox" name="chk" data-uid="${mem.num}" /></td>
+	                        <td>${mem.num}</td>
+	                        <td>${mem.memBuseoName}</td>
+	                        <td>${mem.memGradeName}</td>
+	                        <td>${mem.memNum}</td>
+	                        <td>${mem.memName}</td>
+	                        <td>${mem.memID}</td>
+	                        <td>
+	                        	<select onChange="changeGender(this.value,'${mem.memGender}');">
+									<option value="M" <c:if test="${mem.memGender eq 'M'}">selected</c:if> >남자</option>
+									<option value="F" <c:if test="${mem.memGender eq 'F'}">selected</c:if> >여자</option>
+								</select>
+	                        </td>
+	                        <td>${mem.memEntdate}</td>
+	                        <td>${mem.memRegdate}</td>
+	                        <td>
+	                        	<select>
+									<option value="1" <c:if test="${mem.memLevel eq '1'}">selected</c:if> >협력업체</option>
+									<option value="2" <c:if test="${mem.memLevel eq '2'}">selected</c:if> >사원</option>
+									<option value="3" <c:if test="${mem.memLevel eq '3'}">selected</c:if>>부서장</option>
+									<option value="4" <c:if test="${mem.memLevel eq '4'}">selected</c:if>>임원</option>
+									<option value="10" <c:if test="${mem.memLevel eq '10'}">selected</c:if>>관리자</option>
+								</select>
+							</td>
+	                        <td>
+	                        	<select>
+									<option value="N"  <c:if test="${mem.memConfirm eq 'N'}">selected</c:if> >미승인</option>
+									<option value="Y"  <c:if test="${mem.memConfirm eq 'Y'}">selected</c:if> >승인</option>
+								</select>
+	                        </td>
+	                        <td>
+	                            <button type="button" class="s-btn-on">수정</button>
+	                            <button type="button" class="s-btn-off">삭제</button>
+	                        </td>
+	                    </tr>
+                    </c:forEach>
 
                 </table>
             </div>
@@ -93,4 +119,44 @@
         </div>
     </main>
 </body>
+<script>
+	document.getElementById('chkAll').onclick = function(){
+	    var chk = document.getElementsByName('chk');
+	    for( var checkbox of chk ){
+	        checkbox.checked = this.checked;
+	    }
+	}
+
+	function changeGender(memGender, num){
+        var msg = "선택하신 사원의 성별을 변경합니다.\n변경하시겠습니까?";
+        if( confirm(msg) ){
+            var genderValue;
+            if(memGender == 'M'){
+                genderValue = 'F';
+            }else{
+                genderValue = 'M';
+            }
+
+            var formData = {
+                memGender : genderValue,
+                num :   num
+            };
+
+            $.ajax({
+                url : "${pageContext.request.contextPath}/changeGender",
+                type : "POST",
+                data : formData,
+                success : function(resData){
+                    alert("성별 설정이 성공적으로 변경되었습니다.");
+                },
+                error : function(){
+                    alert("성별 설정 변경에 실패하였습니다.");
+                },
+                complete : function(){
+                    window.location.reload();
+                }
+            });
+        }
+    }
+</script>
 </html>

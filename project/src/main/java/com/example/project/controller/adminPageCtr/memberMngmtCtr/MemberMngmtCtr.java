@@ -26,7 +26,7 @@ public class MemberMngmtCtr {
 	@Resource(name="uploadPath")
 	private String uploadPath;
 	
-	// '사용자 신청 목록' 페이지 & '미승인 회원' 리스트 불러오기
+	// '사용자 신청 목록' 페이지 & '미승인 회원' 리스트 불러오기 & 검색
 	@RequestMapping("/memberApplicant")
 	public ModelAndView getMemApplicant(
 			@RequestParam(defaultValue = "mem_id") String searchOpt, 
@@ -93,10 +93,33 @@ public class MemberMngmtCtr {
 		return "redirect:/memberApplicant";
 	}
 	
-	// 사용자 목록 페이지 불러오기
+	// '사용자 목록' 페이지 & 모든 회원 리스트 불러오기 & 검색(미완성)
 	@RequestMapping("/memberList")
-	public String getMemList() {
-		return "adminPage/memberMngmt/memberList";
+	public ModelAndView getMemList(
+			@RequestParam(defaultValue = "mem_id") String searchOpt, 
+			@RequestParam(defaultValue = "") String words
+			) {
+		
+		ModelAndView mav = new ModelAndView();
+		List<MemberVO> list = memMngmtSrv.getMemList(searchOpt,words);
+		mav.addObject("list", list);
+		mav.addObject("searchOpt", searchOpt);
+		mav.addObject("words", words);
+		
+		/* 모든 회원 수 */
+		int count = memMngmtSrv.getMemCount(searchOpt,words);
+		mav.addObject("count", count);
+		/* 모든 회원 수 END */
+
+		mav.setViewName("adminPage/memberMngmt/memberList");
+		return mav;
+	}
+	
+	@RequestMapping(value="/changeGender", method=RequestMethod.POST)
+	@ResponseBody
+	public String changeGender(@RequestParam String memGender, @RequestParam String num) {
+		memMngmtSrv.changeGender(memGender, num);
+		return "success";
 	}
 	
 }
