@@ -62,7 +62,7 @@
                     </tr>
                     <c:forEach items="${list}" var="mem">
 	                    <tr class="center">
-	                        <td><input type="checkbox" name="chk" data-uid="${mem.num}" /></td>
+	                        <td><input type="checkbox" name="chk" class="chk" data-uid="${mem.num}" /></td>
 	                        <td>${mem.num}</td>
 	                        <td>${mem.memBuseoName}</td>
 	                        <td>${mem.memGradeName}</td>
@@ -78,23 +78,23 @@
 	                        <td>${mem.memEntdate}</td>
 	                        <td>${mem.memRegdate}</td>
 	                        <td>
-	                        	<select class="sel-100">
+	                        	<select onChange="changeLevel(this.value,'${mem.num}');" class="sel-100">
 									<option value="1" <c:if test="${mem.memLevel eq '1'}">selected</c:if> >협력업체</option>
 									<option value="2" <c:if test="${mem.memLevel eq '2'}">selected</c:if> >사원</option>
 									<option value="3" <c:if test="${mem.memLevel eq '3'}">selected</c:if>>부서장</option>
 									<option value="4" <c:if test="${mem.memLevel eq '4'}">selected</c:if>>임원</option>
-									<option value="10" <c:if test="${mem.memLevel eq '10'}">selected</c:if>>관리자</option>
+									<option value="5" <c:if test="${mem.memLevel eq '5'}">selected</c:if>>관리자</option>
 								</select>
 							</td>
 	                        <td >
-	                        	<select class="sel-100">
-									<option value="N"  <c:if test="${mem.memConfirm eq 'N'}">selected</c:if> >미승인</option>
-									<option value="Y"  <c:if test="${mem.memConfirm eq 'Y'}">selected</c:if> >승인</option>
+	                        	<select onChange="changeConfirm(this.value, '${mem.num}');" class="sel-100">
+									<option value="N" <c:if test="${mem.memConfirm eq 'N'}">selected</c:if> >미승인</option>
+									<option value="Y" <c:if test="${mem.memConfirm eq 'Y'}">selected</c:if> >승인</option>
 								</select>
 	                        </td>
 	                        <td>
 	                            <button type="button" class="s-btn-on">수정</button>
-	                            <button type="button" class="s-btn-off">삭제</button>
+	                            <button onClick="deleteOne('${mem.num}');" type="button" class="s-btn-off">삭제</button>
 	                        </td>
 	                    </tr>
                     </c:forEach>
@@ -143,16 +143,10 @@
 	function changeGender(memGender, num){
         var msg = "선택하신 사원의 성별을 변경합니다.\n변경하시겠습니까?";
         if( confirm(msg) ){
-            var genderValue;
-            if(memGender == 'M'){
-                genderValue = 'F';
-            }else{
-                genderValue = 'M';
-            }
 
             var formData = {
-                memGender : genderValue,
-                num :   num
+            	memGender : memGender,
+                num : num
             };
 
             $.ajax({
@@ -173,5 +167,84 @@
             });
         }
     }
+
+	function changeLevel(memLevel, num){
+        var msg = "선택하신 회원의 권한수준을 변경합니다.\n변경하시겠습니까? ";
+        if(confirm(msg)){
+            var formData = {
+                memLevel    : memLevel,
+                num         : num
+            }
+
+            $.ajax({
+                url     : "${pageContext.request.contextPath}/changeLevel",
+                type    : "POST",
+                data    : formData,
+                success : function(resData){
+                    if( resData == "success" ){
+                        alert("권한수준이 변경되었습니다.");
+                    }
+                },
+                error   : function(){
+                    alert("권한수준 변경에 실패하였습니다.");
+                },
+                complete    : function(){
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+	function changeConfirm(memConfirm, num){
+        var msg = "선택하신 회원의 승인여부를 변경합니다.\n변경하시겠습니까? ";
+        if(confirm(msg)){
+            var formData = {
+            	memConfirm    : memConfirm,
+                num         : num
+            }
+
+            $.ajax({
+                url     : "${pageContext.request.contextPath}/changeConfirm",
+                type    : "POST",
+                data    : formData,
+                success : function(resData){
+                    if( resData == "success" ){
+                        alert("승인여부가 변경되었습니다.");
+                    }
+                },
+                error   : function(){
+                    alert("승인여부 변경에 실패하였습니다.");
+                },
+                complete    : function(){
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+	function deleteOne(num){
+		
+		var msg = "선택하신 정보의 모든 내용이 삭제됩니다.\n삭제하시겠습니까?";
+		
+		//확인창을 실행한다면..
+		if( confirm(msg) ){
+			$.ajax({
+				url	: "${pageContext.request.contextPath}/deleteOne",
+				type	: "POST",
+				data	: {num : num},
+				success	: function(resData){
+					if( resData == "success" ){
+						alert("선택하신 정보가 삭제되었습니다. ");
+					}
+				},
+				error	: function(){
+					alert("선택하신 정보를 삭제할 수 없습니다.");
+				},
+				complete: function(){
+					window.location.reload();
+				}
+			});
+		}
+	}
 </script>
 </html>

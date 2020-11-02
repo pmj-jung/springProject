@@ -179,4 +179,23 @@
 		SET mem_gender = #{memGender} 
 		WHERE num = #{num}
 	</update>
+	
+	<!-- 회원 권한수준(레벨) 바꾸기 -->
+	<update id="changeLevel" parameterType="hashmap">
+		UPDATE member 
+		SET mem_level = #{memLevel} 
+		WHERE num = #{num}
+	</update>
+	
+	<!-- 회원 승인 여부 바꾸기 -->
+	<update id="changeConfirm" parameterType="hashmap">
+		UPDATE member 
+		SET mem_confirm = #{memConfirm} 
+		WHERE num = #{num}
+	</update>
+	
+	<!-- 버튼으로 해당 회원 삭제 -->
+	<delete id="deleteOne" parameterType="int">
+		DELETE FROM member WHERE num = #{num}
+	</delete>
 </mapper>

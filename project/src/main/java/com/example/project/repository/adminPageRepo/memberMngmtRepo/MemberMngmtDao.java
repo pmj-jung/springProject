@@ -69,4 +69,22 @@ public class MemberMngmtDao {
 		map.put("num",num);
 		sqlSession.update("member.changeGender",map);
 	}
+	
+	public void changeLevel(String memLevel, int num){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memLevel",memLevel);
+		map.put("num",num);
+		sqlSession.update("member.changeLevel",map);
+	}
+	
+	public void changeConfirm(String memConfirm, int num){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memConfirm",memConfirm);
+		map.put("num",num);
+		sqlSession.update("member.changeConfirm",map);
+	}
+	
+	public void deleteOne(int num) {
+		sqlSession.delete("member.deleteOne",num);
+	}
 }

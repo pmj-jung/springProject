@@ -54,4 +54,16 @@ public class MemberMngmtSrv {
 	public void changeGender(String memGender, int num){
 		memMngmtDao.changeGender(memGender, num);
 	}
+	
+	public void changeLevel(String memLevel, int num){
+		memMngmtDao.changeLevel(memLevel, num);
+	}
+	
+	public void changeConfirm(String memConfirm, int num){
+		memMngmtDao.changeConfirm(memConfirm, num);
+	}
+	
+	public void deleteOne(int num){
+		memMngmtDao.deleteOne(num);
+	}
 }

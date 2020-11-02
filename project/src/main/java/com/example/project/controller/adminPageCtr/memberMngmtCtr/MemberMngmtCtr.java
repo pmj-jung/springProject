@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -115,10 +114,35 @@ public class MemberMngmtCtr {
 		return mav;
 	}
 	
+	// 성별 변경
 	@RequestMapping(value="/changeGender", method=RequestMethod.POST)
 	@ResponseBody
 	public String changeGender(@RequestParam String memGender, @RequestParam int num) {
 		memMngmtSrv.changeGender(memGender, num);
+		return "success";
+	}
+	
+	// 권한수준(레벨) 변경
+	@RequestMapping(value="/changeLevel", method=RequestMethod.POST)
+	@ResponseBody
+	public String changeLevel(@RequestParam String memLevel, @RequestParam int num) {
+		memMngmtSrv.changeLevel(memLevel, num);
+		return "success";
+	}
+	
+	// 승인 여부 변경
+	@RequestMapping(value="/changeConfirm", method=RequestMethod.POST)
+	@ResponseBody
+	public String changeConfirm(@RequestParam String memConfirm, @RequestParam int num) {
+		memMngmtSrv.changeConfirm(memConfirm, num);
+		return "success";
+	}
+	
+	// 회원 한 명 삭제
+	@RequestMapping(value="/deleteOne", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteOne(@RequestParam int num) {
+		memMngmtSrv.deleteOne(num);
 		return "success";
 	}
 	
