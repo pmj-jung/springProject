@@ -51,7 +51,7 @@ public class MemberMngmtSrv {
 		return memMngmtDao.getMemCount(searchOpt, words);
 	}
 	
-	public void changeGender(String memGender, String num){
+	public void changeGender(String memGender, int num){
 		memMngmtDao.changeGender(memGender, num);
 	}
 }

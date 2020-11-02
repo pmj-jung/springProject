@@ -46,7 +46,7 @@
             <div class="member-tbl">
                 <table>
                     <tr class="center">
-                        <td class="td-3"><input type="checkbox" id="chkAll" data-uid="${mem.num}" /></td>
+                        <td class="td-3"><input type="checkbox" onClick="chkAll();" id="chkAll" data-uid="${mem.num}" /></td>
                         <td class="td-5">번호</td>
                         <td class="td-8">부서명</td>
                         <td class="td-8">직급명</td>
@@ -56,8 +56,8 @@
                         <td class="td-8">성별</td>
                         <td class="td-8">입사일</td>
                         <td class="td-8">가입일</td>
-                        <td class="td-3">권한</td>
-                        <td class="td-3">승인</td>
+                        <td class="td-8">권한</td>
+                        <td class="td-8">승인</td>
                         <td class="td-10">관리</td>
                     </tr>
                     <c:forEach items="${list}" var="mem">
@@ -70,7 +70,7 @@
 	                        <td>${mem.memName}</td>
 	                        <td>${mem.memID}</td>
 	                        <td>
-	                        	<select onChange="changeGender(this.value,'${mem.memGender}');">
+	                        	<select onChange="changeGender(this.value,'${mem.num}');" class="sel-100">
 									<option value="M" <c:if test="${mem.memGender eq 'M'}">selected</c:if> >남자</option>
 									<option value="F" <c:if test="${mem.memGender eq 'F'}">selected</c:if> >여자</option>
 								</select>
@@ -78,7 +78,7 @@
 	                        <td>${mem.memEntdate}</td>
 	                        <td>${mem.memRegdate}</td>
 	                        <td>
-	                        	<select>
+	                        	<select class="sel-100">
 									<option value="1" <c:if test="${mem.memLevel eq '1'}">selected</c:if> >협력업체</option>
 									<option value="2" <c:if test="${mem.memLevel eq '2'}">selected</c:if> >사원</option>
 									<option value="3" <c:if test="${mem.memLevel eq '3'}">selected</c:if>>부서장</option>
@@ -86,8 +86,8 @@
 									<option value="10" <c:if test="${mem.memLevel eq '10'}">selected</c:if>>관리자</option>
 								</select>
 							</td>
-	                        <td>
-	                        	<select>
+	                        <td >
+	                        	<select class="sel-100">
 									<option value="N"  <c:if test="${mem.memConfirm eq 'N'}">selected</c:if> >미승인</option>
 									<option value="Y"  <c:if test="${mem.memConfirm eq 'Y'}">selected</c:if> >승인</option>
 								</select>
@@ -120,11 +120,24 @@
     </main>
 </body>
 <script>
-	document.getElementById('chkAll').onclick = function(){
-	    var chk = document.getElementsByName('chk');
-	    for( var checkbox of chk ){
-	        checkbox.checked = this.checked;
-	    }
+
+
+	var flag = false; 
+	function chkAll() {
+		var chk = document.getElementsByName("chk");
+		if( flag == false) {
+			flag = true;
+			for(var i = 0; i < chk.length; i++) {
+				chk[i].checked = true;
+			}
+			
+		}else{
+			flag = false;
+			for(var i = 0; i < chk.length; i++) {
+				chk[i].checked = false;
+			}
+		}
+		
 	}
 
 	function changeGender(memGender, num){
@@ -147,7 +160,9 @@
                 type : "POST",
                 data : formData,
                 success : function(resData){
-                    alert("성별 설정이 성공적으로 변경되었습니다.");
+                    if( resData == "success" ){
+						alert("성별 설정이 성공적으로 변경되었습니다.");
+                    }                    
                 },
                 error : function(){
                     alert("성별 설정 변경에 실패하였습니다.");

@@ -117,7 +117,7 @@ public class MemberMngmtCtr {
 	
 	@RequestMapping(value="/changeGender", method=RequestMethod.POST)
 	@ResponseBody
-	public String changeGender(@RequestParam String memGender, @RequestParam String num) {
+	public String changeGender(@RequestParam String memGender, @RequestParam int num) {
 		memMngmtSrv.changeGender(memGender, num);
 		return "success";
 	}

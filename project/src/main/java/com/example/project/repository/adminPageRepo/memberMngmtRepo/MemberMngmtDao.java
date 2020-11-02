@@ -63,8 +63,8 @@ public class MemberMngmtDao {
 		return sqlSession.selectOne("member.getMemCount",map);
 	}
 	
-	public void changeGender(String memGender, String num){
-		HashMap<String, String> map = new HashMap<String, String>();
+	public void changeGender(String memGender, int num){
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memGender",memGender);
 		map.put("num",num);
 		sqlSession.update("member.changeGender",map);

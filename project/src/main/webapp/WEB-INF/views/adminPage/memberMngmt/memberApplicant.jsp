@@ -47,7 +47,7 @@
             <div class="member-tbl">
                 <table>
                     <tr class="center">
-                        <td class="td-3"><input type="checkbox" id="chkAll" data-uid="${mem.num}"/></td>
+                        <td class="td-3"><input type="checkbox" onClick="chkAll();" id="chkAll" data-uid="${mem.num}"/></td>
                         <td class="td-10">신청일</td>
                         <td class="td-12">신청 아이디</td>
                         <td class="td-10">신청자</td>
@@ -101,11 +101,24 @@
 </body>
 <script>
 
-	document.getElementById('chkAll').onclick = function(){
-	    var chk = document.getElementsByName('chk');
-	    for( var checkbox of chk ){
-	        checkbox.checked = this.checked;
-	    }
+	var flag = false; 
+	function chkAll() {
+	
+		var chk = document.getElementsByName("chk");
+		if( flag == false) {
+			flag = true;
+	
+			for(var i = 0; i < chk.length; i++) {
+				chk[i].checked = true;
+			}
+			
+		}else{
+			flag = false;
+			for(var i = 0; i < chk.length; i++) {
+				chk[i].checked = false;
+			}
+		}
+		
 	}
 
 	function approveConfirm(num){

@@ -143,14 +143,14 @@
                                 <tr class="center">
                                     <td class="td-10">결혼여부</td>
                                     <td class="td-10 p-lr5">
-                                        <select name="memMarried" id="memMarried">
+                                        <select name="memMarried" id="memMarried" class="sel-100">
                                             <option value="F">미혼</option>
                                             <option value="T">기혼</option>
                                         </select>
                                     </td>
                                     <td class="td-10">병역구분</td>
                                     <td class="td-10 p-lr5">
-                                        <select name="memService" id="memService">
+                                        <select name="memService" id="memService" class="sel-100">
                                             <option value="T">필</option>
                                             <option value="F">미필</option>
                                         </select>
@@ -167,7 +167,7 @@
                                 <tr class="center">
                                     <td class="td-10">장애여부</td>
                                     <td class="p-lr5">
-                                        <select name="memDisability" id="memDisability">
+                                        <select name="memDisability" id="memDisability" class="sel-100">
                                             <option value="F">비장애</option>
                                             <option value="T">장애</option>
                                         </select>
@@ -178,7 +178,7 @@
                                     </td>
                                     <td class="td-10">보훈대상여부</td>
                                     <td class="p-lr5">
-                                        <select name="memReward" id="memReward">
+                                        <select name="memReward" id="memReward" class="sel-100">
                                             <option value="F">비대상</option>
                                             <option value="T">대상</option>
                                         </select>
@@ -200,7 +200,7 @@
                                     </td>
                                     <td class="td-10">종교</td>
                                     <td class="p-lr5">
-                                        <select name="memReligion" id="memReligion">
+                                        <select name="memReligion" id="memReligion" class="sel-100">
                                             <option value="F">무교</option>
                                             <option value="Chr">기독교</option>
                                             <option value="Bud">불교</option>
