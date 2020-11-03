@@ -25,12 +25,12 @@
             </div>
             <div class="btn-wrap flex flex-justify">
                 <div class="btns">
-                    <button type="button" class="btn-on" >사용자추가</button>
-                    <button type="button" class="btn-off">선택삭제</button>
+                    <button class="btn-on" onClick="location.href='${pageContext.request.contextPath}/member/memberInsert'">사용자추가</button>
+                    <button class="btn-off">선택삭제</button>
                 </div>
                 <div class="search-box">
                     <form name="search-frm" class="search-frm" method="post" 
-                    action="${pageContext.request.contextPath}/memberList">
+                    action="${pageContext.request.contextPath}/member/memberList">
                         <select name="searchOpt" class="sel">
                             <option value="mem_id" <c:if test="${searchOpt eq 'mem_id'}">selected</c:if> >아이디</option>
                             <option value="mem_name" <c:if test="${searchOpt eq 'mem_name'}">selected</c:if> >신청자명</option>
@@ -150,7 +150,7 @@
             };
 
             $.ajax({
-                url : "${pageContext.request.contextPath}/changeGender",
+                url : "${pageContext.request.contextPath}/member/changeGender",
                 type : "POST",
                 data : formData,
                 success : function(resData){
@@ -177,7 +177,7 @@
             }
 
             $.ajax({
-                url     : "${pageContext.request.contextPath}/changeLevel",
+                url     : "${pageContext.request.contextPath}/member/changeLevel",
                 type    : "POST",
                 data    : formData,
                 success : function(resData){
@@ -204,7 +204,7 @@
             }
 
             $.ajax({
-                url     : "${pageContext.request.contextPath}/changeConfirm",
+                url     : "${pageContext.request.contextPath}/member/changeConfirm",
                 type    : "POST",
                 data    : formData,
                 success : function(resData){
@@ -229,7 +229,7 @@
 		//확인창을 실행한다면..
 		if( confirm(msg) ){
 			$.ajax({
-				url	: "${pageContext.request.contextPath}/deleteOne",
+				url	: "${pageContext.request.contextPath}/member/deleteOne",
 				type	: "POST",
 				data	: {num : num},
 				success	: function(resData){

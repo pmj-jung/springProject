@@ -4,11 +4,11 @@
     <ul>
         <li class="menu">사용자 관리
             <ul class="submenu">
-                <li><a href="${pageContext.request.contextPath}/memberList">사용자 목록</a></li>
-                <li><a href="${pageContext.request.contextPath}/memberInsert">사용자 등록</a></li>
-                <li><a href="${pageContext.request.contextPath}/memberApplicant">사용자 신청 목록</a></li>
-                <li><a href="${pageContext.request.contextPath}/orgChart_manage">조직도 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/orgChart">조직도</a></li>
+                <li><a href="${pageContext.request.contextPath}/member/memberList">사용자 목록</a></li>
+                <li><a href="${pageContext.request.contextPath}/member/memberInsert">사용자 등록</a></li>
+                <li><a href="${pageContext.request.contextPath}/member/memberApplicant">사용자 신청 목록</a></li>
+                <li><a href="${pageContext.request.contextPath}/member/orgChart_manage">조직도 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/member/orgChart">조직도</a></li>
             </ul>
         </li>
         <li class="menu">전자결재

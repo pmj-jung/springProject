@@ -17,6 +17,7 @@ import com.example.project.model.MemberVO;
 import com.example.project.service.adminPageSrv.memberMngmtSrv.MemberMngmtSrv;
 
 @Controller
+@RequestMapping("/member")
 public class MemberMngmtCtr {
 
 	@Autowired
@@ -89,7 +90,7 @@ public class MemberMngmtCtr {
 	@RequestMapping(value = "/memberInsert", method = RequestMethod.POST)
 	public String setMemOthers(MemberVO mvo) {
 		memMngmtSrv.setMemOthers(mvo);
-		return "redirect:/memberApplicant";
+		return "redirect:/member/memberApplicant";
 	}
 	
 	// '사용자 목록' 페이지 & 모든 회원 리스트 불러오기 & 검색(미완성)

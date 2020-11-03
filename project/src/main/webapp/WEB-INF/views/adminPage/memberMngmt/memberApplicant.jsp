@@ -31,7 +31,7 @@
                 </div>
                 <div class="search-box">
                     <form name="search-frm" class="search-frm" method="post" 
-                    action="${pageContext.request.contextPath}/memberApplicant">
+                    action="${pageContext.request.contextPath}/member/memberApplicant">
                         <select name="searchOpt" class="sel">
                             <option value="mem_id" <c:if test="${searchOpt eq 'mem_id'}">selected</c:if> >아이디</option>
                             <option value="mem_name" <c:if test="${searchOpt eq 'mem_name'}">selected</c:if> >신청자명</option>
@@ -129,7 +129,7 @@
 	        }
 	
 	        $.ajax({
-	            url     : "${pageContext.request.contextPath}/approveConfirm",
+	            url     : "${pageContext.request.contextPath}/member/approveConfirm",
 	            type    : "POST",
 	            data    :  formData,
 	            success :   function(resData){
@@ -155,7 +155,7 @@
 	        }
 	
 	        $.ajax({
-	            url     : "${pageContext.request.contextPath}/disapproveConfirm",
+	            url     : "${pageContext.request.contextPath}/member/disapproveConfirm",
 	            type    : "POST",
 	            data    :  formData,
 	            success :   function(resData){
@@ -187,7 +187,7 @@
             };
 
             $.ajax({
-	            url : "${pageContext.request.contextPath}/chkApproveConfirm",
+	            url : "${pageContext.request.contextPath}/member/chkApproveConfirm",
 	            type : "POST",
 	            data : chkArrayData,
 	            success : function(resData){
