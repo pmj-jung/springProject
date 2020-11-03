@@ -23,8 +23,8 @@ public class MemberMngmtSrv {
 		memMngmtDao.setMemOthers(mvo);
 	}
 	
-	public List<MemberVO> getMemApplicant(String searchOpt, String words) {
-		return memMngmtDao.getMemApplicant(searchOpt, words);
+	public List<MemberVO> getMemApplicant(int start, int end, String searchOpt, String words) {
+		return memMngmtDao.getMemApplicant(start, end, searchOpt, words);
 	}
 	
 	public void approveConfirm(int num) {
@@ -43,8 +43,8 @@ public class MemberMngmtSrv {
 		memMngmtDao.chkApproveConfirm(chkArray);
 	}
 	
-	public List<MemberVO> getMemList(String searchOpt, String words) {
-		return memMngmtDao.getMemList(searchOpt, words);
+	public List<MemberVO> getMemList(int start, int end, String searchOpt, String words) {
+		return memMngmtDao.getMemList(start, end, searchOpt, words);
 	}
 	
 	public int getMemCount(String searchOpt, String words) {

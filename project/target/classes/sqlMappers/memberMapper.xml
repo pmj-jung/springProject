@@ -109,7 +109,8 @@
 		M.mem_grade = G.grade_id AND 
 		M.mem_confirm = 'N' 
 		<include refid="search"></include> 
-		ORDER BY num DESC
+		ORDER BY num DESC 
+		LIMIT #{start}, #{end}
 	</select>
 	
 	<!-- 미승인회원 '승인'으로 업데이트 -->
@@ -163,7 +164,8 @@
 		WHERE M.mem_buseo = B.buseo_id AND 
 		M.mem_grade = G.grade_id 
 		<include refid="search"></include> 
-		ORDER BY num DESC
+		ORDER BY num DESC 
+		LIMIT #{start}, #{end}
 	</select>
 	
 	<!-- 전체회원 수 카운트 -->

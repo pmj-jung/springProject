@@ -42,7 +42,7 @@
                     </form>
                 </div>
             </div>
-            <div>전체 회원 수 : ${count} 명</div>
+            <div>전체 회원 수 : ${count} 명 ( ${curPage} of ${totalPage} pages )</div>
             <div class="member-tbl">
                 <table>
                     <tr class="center">
@@ -60,10 +60,10 @@
                         <td class="td-8">승인</td>
                         <td class="td-10">관리</td>
                     </tr>
-                    <c:forEach items="${list}" var="mem">
+                    <c:forEach items="${list}" var="mem" varStatus="status">
 	                    <tr class="center">
 	                        <td><input type="checkbox" name="chk" class="chk" data-uid="${mem.num}" /></td>
-	                        <td>${mem.num}</td>
+	                        <td>${(count - status.index) - ( (curPage - 1) * end )}</td>
 	                        <td>${mem.memBuseoName}</td>
 	                        <td>${mem.memGradeName}</td>
 	                        <td>${mem.memNum}</td>
@@ -102,20 +102,89 @@
                 </table>
             </div>
 
-            <div class="page-grp">
-                <span class="page"><i class="fas fa-angle-left"></i></span>
-                <span class="page"><i class="fas fa-angle-double-left"></i></span>
-
-                <span class="page active">1</span>
-                <span class="page">2</span>
-                <span class="page">3</span>
-                <span class="page">4</span>
-                <span class="page">5</span>
-
-                <span class="page"><i class="fas fa-angle-right"></i></span>
-                <span class="page"><i class="fas fa-angle-double-right"></i></span>
-            </div>
-
+            <!-- 페이징 UI 시작 -->
+			<c:if test="${count > 0}">
+				<div class="page-grp center m-t10">
+					<c:choose>
+						<c:when test="${curPage > 1}">
+							<a href="${pageContext.request.contextPath}/member/memberList?curPage=1&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-double-left"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-double-left"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${curPage > 1}">
+							<a href="${pageContext.request.contextPath}/member/memberList?curPage=${curPage-1}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-left"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-left"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+				
+					<!-- 페이지 번호 출력 -->
+					<c:forEach begin = "${blockBegin}" end="${blockEnd}" var="num">
+						<c:if test="${ selected == num }">
+							<span class="page active">
+								<a href="#" style="color:#fff;">${num}</a>
+							</span>
+						</c:if>
+						
+						<c:if test="${ selected != num }">
+							<a href="${pageContext.request.contextPath}/member/memberList?curPage=${num}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									${num}
+								</span>
+							</a>
+						</c:if>	
+					</c:forEach>
+					
+					<c:choose>
+						<c:when test="${curPage >= 1}">
+							<a href="${pageContext.request.contextPath}/member/memberList?curPage=${totalPage}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-double-right"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-double-right"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${curPage != totalPage}">
+							<a href="${pageContext.request.contextPath}/member/memberList?curPage=${curPage+1}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-right"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-right"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+					
+				</div>
+			</c:if>
+			<!-- 페이징 UI 끝-->
         </div>
     </main>
 </body>

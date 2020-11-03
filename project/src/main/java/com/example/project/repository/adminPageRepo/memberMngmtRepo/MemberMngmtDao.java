@@ -23,10 +23,12 @@ public class MemberMngmtDao {
 		sqlSession.insert("member.setMemOthers",mvo);
 	}
 	
-	public List<MemberVO> getMemApplicant(String searchOpt, String words) {
-		HashMap<String, String> map = new HashMap<String, String>();
+	public List<MemberVO> getMemApplicant(int start, int end, String searchOpt, String words) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOpt",searchOpt);
 		map.put("words",words);
+		map.put("start",start);
+		map.put("end",end);
 		return sqlSession.selectList("member.getMemApplicant",map);
 	}
 	
@@ -49,10 +51,12 @@ public class MemberMngmtDao {
 		sqlSession.update("member.chkApproveConfirm", chkArray);
 	}
 	
-	public List<MemberVO> getMemList(String searchOpt, String words) {
-		HashMap<String, String> map = new HashMap<String, String>();
+	public List<MemberVO> getMemList(int start, int end, String searchOpt, String words) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("searchOpt",searchOpt);
 		map.put("words",words);
+		map.put("start",start);
+		map.put("end",end);
 		return sqlSession.selectList("member.getMemList",map);
 	}
 	
