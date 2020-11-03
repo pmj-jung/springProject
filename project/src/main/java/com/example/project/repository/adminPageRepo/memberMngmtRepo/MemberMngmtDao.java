@@ -47,8 +47,12 @@ public class MemberMngmtDao {
 		return sqlSession.selectOne("member.getApplicantCount",map);
 	}
 	
-	public void chkApproveConfirm(int[] chkArray) {
-		sqlSession.update("member.chkApproveConfirm", chkArray);
+	public void approveAll(int num) {
+		sqlSession.update("member.approveAll",num);
+	}
+	
+	public void rejectAll(int num) {
+		sqlSession.delete("member.rejectAll",num);
 	}
 	
 	public List<MemberVO> getMemList(int start, int end, String searchOpt, String words) {
@@ -90,5 +94,9 @@ public class MemberMngmtDao {
 	
 	public void deleteOne(int num) {
 		sqlSession.delete("member.deleteOne",num);
+	}
+	
+	public void deleteMemAll(int num) {
+		sqlSession.delete("member.deleteMemAll",num);
 	}
 }

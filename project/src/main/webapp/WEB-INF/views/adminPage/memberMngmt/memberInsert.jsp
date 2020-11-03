@@ -1,22 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/include/HEADER.jsp"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:if test="${sessionScope.memID == null}">
-	<script>
-		alert("등록된 사용자가 아닙니다.\n관리자에게 문의하세요");
-		location.href="${pageContext.request.contextPath}/login";
-	</script>
-</c:if>
-<c:if test="${sessionScope.memLevel < 2}">
-	<script>
-		alert("접근권한이 없습니다.\n관리자에게 문의하세요.");
-		location.href="${pageContext.request.contextPath}/userhome";
-	</script>
-</c:if>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/headNmenu.css">
+<%@ include file="/WEB-INF/views/include/ADMIN_HEADER.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
-<script src="${pageContext.request.contextPath}/js/menu.js"></script>
 <style>
     td {
         border:1px solid #ccc;

@@ -19,7 +19,6 @@
                 placeholder="" required tabindex="1">
                 <div id="checkID" style="color:#f00; padding-bottom:10px;"></div>
 				
-				
                 <div class="pwd-wrap flex flex-justify">
                     <div class="p-lr3">
                         <p>비밀번호</p>
@@ -40,8 +39,8 @@
                     </div>
                     <div class="p-lr3">
                         <p>성별</p>
-                        <select name="memGender" id="memGender" required tabindex="5">
-                            <option value="" disabled selected hidden>선택</option>
+                        <select style="width:150px;" name="memGender" id="memGender" class="sel-100" required tabindex="5">
+                            <option value="" disabled selected>선택</option>
                             <option value="M">남자</option>
                             <option value="F">여자</option>
                         </select>
@@ -60,13 +59,15 @@
                 <div class="p-lr3 flex flex-justify">
 					<div>
 	                    <p>부서</p>
-	                    <select name="memBuseoCode" id="memBuseoCode" tabindex="8">
-	                    </select>
+	                    <div>
+		                    <select style="width:150px;" name="memBuseoCode" id="memBuseoCode" class="sel-100" tabindex="8">
+		                    </select>
+	                    </div>
 	                </div>
 	
 	                <div>
 	                    <p>직급</p>
-	                    <select name="memGradeCode" id="memGradeCode" tabindex="9">
+	                    <select style="width:150px;" name="memGradeCode" id="memGradeCode" class="sel-100" tabindex="9">
 	                    </select>
 	                </div>
 				</div>

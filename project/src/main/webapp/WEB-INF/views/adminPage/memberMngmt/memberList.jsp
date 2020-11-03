@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/views/include/HEADER.jsp"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/headNmenu.css">
+<%@ include file="/WEB-INF/views/include/ADMIN_HEADER.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css">
-<script src="${pageContext.request.contextPath}/js/menu.js"></script>
 <script src="${pageContext.request.contextPath}/js/table.js"></script>
 <style>
     tr:first-child {
@@ -26,18 +23,18 @@
             <div class="btn-wrap flex flex-justify">
                 <div class="btns">
                     <button class="btn-on" onClick="location.href='${pageContext.request.contextPath}/member/memberInsert'">사용자추가</button>
-                    <button class="btn-off">선택삭제</button>
+                    <button class="btn-off" id="deleteAll">선택삭제</button>
                 </div>
                 <div class="search-box">
                     <form name="search-frm" class="search-frm" method="post" 
                     action="${pageContext.request.contextPath}/member/memberList">
                         <select name="searchOpt" class="sel">
                             <option value="mem_id" <c:if test="${searchOpt eq 'mem_id'}">selected</c:if> >아이디</option>
-                            <option value="mem_name" <c:if test="${searchOpt eq 'mem_name'}">selected</c:if> >신청자명</option>
+                            <option value="mem_name" <c:if test="${searchOpt eq 'mem_name'}">selected</c:if> >사원명</option>
                             <option value="mem_num" <c:if test="${searchOpt eq 'mem_num'}">selected</c:if> >사원번호</option>
                             <option value="all" <c:if test="${searchOpt eq 'all'}">selected</c:if> >전체검색</option>
                         </select>
-                        <input value="${words}" type="text" name="words" class="input" maxlength="20" tabindex="1" />
+                        <input value="${words}" type="text" name="words" class="input p-lr5" maxlength="20" tabindex="1" />
                         <button type="submit" class="search-btn" tabindex="2">검색</button>
                     </form>
                 </div>
@@ -60,6 +57,11 @@
                         <td class="td-8">승인</td>
                         <td class="td-10">관리</td>
                     </tr>
+                    <c:if test="${count == 0}">
+						<tr id="noCss">
+							<td colspan="13" style="height:200px;" class="center weight700">승인 대기 회원이 없습니다.</td>
+						</tr>
+					</c:if>
                     <c:forEach items="${list}" var="mem" varStatus="status">
 	                    <tr class="center">
 	                        <td><input type="checkbox" name="chk" class="chk" data-uid="${mem.num}" /></td>
@@ -315,5 +317,33 @@
 			});
 		}
 	}
+
+	$(function(){
+		$("#deleteAll").click(function(){
+			var msg = "선택하신 정보의 모든 내용이 삭제됩니다. \n삭제하시겠습니까?";
+			if(confirm(msg)){
+				var chkArray = new Array();
+				$(".chk:checked").each(function(){
+					chkArray.push($(this).attr("data-uid"));
+				});
+
+				$.ajax({
+					url		: "${pageContext.request.contextPath}/member/deleteMemAll",
+					type	: "POST",
+					data	: {chkArr : chkArray},
+					// controller <- chkArr
+					success	: function(resData){
+						alert("선택하신 정보가 삭제되었습니다.");
+						window.location.reload();
+					},
+					error	: function(){
+						alert("시스템 에러");
+					},
+					complete : function(){
+					}
+				});
+			}
+		});
+	});
 </script>
 </html>

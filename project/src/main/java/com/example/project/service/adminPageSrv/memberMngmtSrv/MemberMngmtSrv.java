@@ -39,8 +39,12 @@ public class MemberMngmtSrv {
 		return memMngmtDao.getApplicantCount(searchOpt, words);
 	}
 	
-	public void chkApproveConfirm(int[] chkArray) {
-		memMngmtDao.chkApproveConfirm(chkArray);
+	public void approveAll(int num) {
+		memMngmtDao.approveAll(num);
+	}
+	
+	public void rejectAll(int num) {
+		memMngmtDao.rejectAll(num);
 	}
 	
 	public List<MemberVO> getMemList(int start, int end, String searchOpt, String words) {
@@ -65,5 +69,9 @@ public class MemberMngmtSrv {
 	
 	public void deleteOne(int num){
 		memMngmtDao.deleteOne(num);
+	}
+	
+	public void deleteMemAll(int num){
+		memMngmtDao.deleteMemAll(num);
 	}
 }

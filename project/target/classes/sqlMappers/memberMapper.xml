@@ -80,7 +80,7 @@
 				AND (
 				mem_id LIKE CONCAT('%', #{words} , '%') OR 
 				mem_name LIKE CONCAT('%', #{words} , '%') OR 
-				mem_num LIKE CONCAT('%', #{words} , '%')				
+				mem_num LIKE CONCAT('%', #{words} , '%')
 				) 
 			</when>
 			<otherwise>
@@ -135,14 +135,17 @@
 	</select>
 	
 	<!-- 체크된 미승인회원 '승인'하기 -->
-	<update id="chkApproveConfirm">
+	<update id="approveAll" parameterType="int">
 	    UPDATE member 
 	    SET mem_confirm = 'Y' 
-	    WHERE num IN 
-	    <foreach collection="chkArray" item="arr" open="(" close=")" separator=",">
-	    #{arr}
-	    </foreach>
+	    WHERE num = #{num}
 	</update>
+	
+	<!-- 체크된 미승인회원 '승인거부'하기=DB에서지움 -->
+	<delete id="rejectAll" parameterType="int">
+	    DELETE FROM member  
+	    WHERE num = #{num}
+	</delete>
 	
 	<!-- "모든 회원" 리스트 가져오기 -->
 	<select id="getMemList" parameterType="hashmap" resultType="membervo">
@@ -172,6 +175,7 @@
 	<select id="getMemCount" parameterType="hashmap" resultType="int">
 		SELECT COUNT(num) 
 		FROM member 
+		WHERE mem_confirm IS NOT NULL 
 		<include refid="search"></include>
 	</select>
 	
@@ -196,8 +200,14 @@
 		WHERE num = #{num}
 	</update>
 	
-	<!-- 버튼으로 해당 회원 삭제 -->
+	<!-- 회원 개별 삭제 -->
 	<delete id="deleteOne" parameterType="int">
 		DELETE FROM member WHERE num = #{num}
+	</delete>
+	
+	<!-- 회원 다중 삭제 -->
+	<delete id="deleteMemAll" parameterType="int">
+		DELETE FROM member 
+		WHERE num = #{num}
 	</delete>
 </mapper>

@@ -92,11 +92,27 @@ public class MemberMngmtCtr {
 		return "success";
 	}
 	
-	// 체크 배열 테스트
-	@RequestMapping(value = "/chkApproveConfirm", method = RequestMethod.POST)
+	// 다중 승인 처리
+	@RequestMapping(value="/approveAll")
 	@ResponseBody
-	public String chkApproveConfirm(@RequestParam int[] chkArray) {
-		memMngmtSrv.chkApproveConfirm(chkArray);
+	public String approveAll(@RequestParam(value="chkArr[]") List<String> chkArr) {
+		int num;
+		for(String list : chkArr) {
+			num = Integer.parseInt(list);
+			memMngmtSrv.approveAll(num);
+		}
+		return "success";
+	}
+	
+	// 다중 거부 처리(DB에서삭제)
+	@RequestMapping(value="/rejectAll")
+	@ResponseBody
+	public String rejectAll(@RequestParam(value="chkArr[]") List<String> chkArr) {
+		int num;
+		for(String list : chkArr) {
+			num = Integer.parseInt(list);
+			memMngmtSrv.rejectAll(num);
+		}
 		return "success";
 	}
 	
@@ -166,8 +182,6 @@ public class MemberMngmtCtr {
 		mav.addObject("selected", pager.getCurPage());
 		/*************** 페이징 끝 ***************/
 		
-		
-
 		mav.setViewName("adminPage/memberMngmt/memberList");
 		return mav;
 	}
@@ -196,11 +210,23 @@ public class MemberMngmtCtr {
 		return "success";
 	}
 	
-	// 회원 한 명 삭제
+	// 회원 개별 삭제
 	@RequestMapping(value="/deleteOne", method=RequestMethod.POST)
 	@ResponseBody
 	public String deleteOne(@RequestParam int num) {
 		memMngmtSrv.deleteOne(num);
+		return "success";
+	}
+	
+	// 회원 다중 삭제
+	@RequestMapping(value="/deleteMemAll", method=RequestMethod.POST)
+	@ResponseBody
+	public String deleteMemAll(@RequestParam(value="chkArr[]") List<String> chkArr) {
+		int num;
+		for(String list : chkArr) {
+			num = Integer.parseInt(list);
+			memMngmtSrv.deleteMemAll(num);
+		}
 		return "success";
 	}
 	
