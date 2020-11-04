@@ -18,7 +18,7 @@
         </li>
         <li class="menu">게시판
             <ul class="submenu">
-                <li><a href="${pageContext.request.contextPath}/boardList">게시판목록</a></li>
+                <li><a href="${pageContext.request.contextPath}/board/boardList">게시판목록</a></li>
             </ul>
         </li>
         <li class="menu">일정관리

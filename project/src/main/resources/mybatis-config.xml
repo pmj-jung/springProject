@@ -6,7 +6,8 @@
 		<!-- type 실제 경로  alias 별명 -->
 		<typeAlias type="com.example.project.model.MemberVO" alias="membervo" />
 		<typeAlias type="com.example.project.model.BuseoVO" alias="buseovo" />
-		<typeAlias type="com.example.project.model.GradeVO" alias="gradevo" />		
+		<typeAlias type="com.example.project.model.GradeVO" alias="gradevo" />	
+		<typeAlias type="com.example.project.model.BoardVO" alias="boardvo" />	
 	</typeAliases>
 </configuration>
 

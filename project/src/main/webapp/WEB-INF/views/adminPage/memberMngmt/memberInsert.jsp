@@ -63,24 +63,39 @@
                                     </td>
                                     <td class="td-10">부서</td>
                                     <td class="td-15 p-lr5">
-                                        <input type="text" name="memBuseoName" id="memBuseoName" class="input-100" value="${memOne.memBuseoName}"/>
+                                    	<select name="memBuseoCode" id="memBuseoCode" class="sel-100">
+                                    		<option value="100" <c:if test="${memOne.memBuseoCode eq '100'}">selected</c:if> >관리부</option>
+											<option value="200" <c:if test="${memOne.memBuseoCode eq '200'}">selected</c:if> >기획부</option>
+											<option value="300" <c:if test="${memOne.memBuseoCode eq '300'}">selected</c:if> >인사부</option>
+											<option value="400" <c:if test="${memOne.memBuseoCode eq '400'}">selected</c:if> >영업부</option>
+											<option value="500" <c:if test="${memOne.memBuseoCode eq '500'}">selected</c:if> >생산부</option>
+											<option value="600" <c:if test="${memOne.memBuseoCode eq '600'}">selected</c:if> >자재부</option>
+											<option value="700" <c:if test="${memOne.memBuseoCode eq '700'}">selected</c:if> >비서실</option>
+		                    			</select>
                                     </td>
                                     <td class="td-10">직급</td>
                                     <td class="td-15 p-lr5">
-                                        <input type="text" name="memGradeName" id="memGradeName" class="input-100" value="${memOne.memGradeName}"/>
+                                        <select name="memGradeCode" id="memGradeCode" class="sel-100">
+                                    		<option value="1" <c:if test="${memOne.memGradeCode eq '1'}">selected</c:if> >사원</option>
+											<option value="2" <c:if test="${memOne.memGradeCode eq '2'}">selected</c:if> >주임</option>
+											<option value="3" <c:if test="${memOne.memGradeCode eq '3'}">selected</c:if> >대리</option>
+											<option value="4" <c:if test="${memOne.memGradeCode eq '4'}">selected</c:if> >과장</option>
+											<option value="5" <c:if test="${memOne.memGradeCode eq '5'}">selected</c:if> >팀장</option>
+											<option value="6" <c:if test="${memOne.memGradeCode eq '6'}">selected</c:if> >부장</option>
+		                    			</select>
                                     </td>
                                 </tr>
                                 <tr class="center">
                                     <td>성별</td>
                                     <td class="p-lr5">
-								        <select name="memGender" id="memGender" class="sel-100" required tabindex="5">
-							                <option value="M" <c:if test="${memOne.memGender eq 'M'}">selected</c:if> >남자</option>
-							                <option value="F" <c:if test="${memOne.memGender eq 'F'}">selected</c:if> >여자</option>
-							            </select>
+								        <select onChange="changeGender(this.value,'${memOne.num}');" class="sel-100">
+											<option value="M" <c:if test="${memOne.memGender eq 'M'}">selected</c:if> >남자</option>
+											<option value="F" <c:if test="${memOne.memGender eq 'F'}">selected</c:if> >여자</option>
+										</select>
                                     </td>
                                     <td>사번</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memNum" id="memNum" class="input-100" autofocus  value="${memOne.memNum}"/>
+                                        <input type="text" name="memNum" id="memNum" class="input-100" value="${memOne.memNum}" autofocus readonly/>
                                     </td>
                                     <td>내선번호</td>
                                     <td class="p-lr5">
@@ -109,9 +124,9 @@
                                     <td>채용형태</td>
                                     <td class="p-lr5">
                                         <select name="memRecruit" id="memRecruit" class="sel-100">
-                                            <option value="Intern">인턴</option>
-                                            <option value="Temp">임시직</option>
-                                            <option value="Full">정규직</option>
+                                            <option value="0">인턴</option>
+                                            <option value="1">임시직</option>
+                                            <option value="2">정규직</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -259,6 +274,36 @@
 	        reader.readAsDataURL(imgFile.files[0]);
 	    }
 	}
+
+	function changeGender(memGender, num){
+        var msg = "선택하신 사원의 성별을 변경합니다.\n변경하시겠습니까?";
+        if( confirm(msg) ){
+
+            var formData = {
+            	memGender : memGender,
+                num : num
+            };
+
+            $.ajax({
+                url : "${pageContext.request.contextPath}/member/changeGender",
+                type : "POST",
+                data : formData,
+                success : function(resData){
+                    if( resData == "success" ){
+						alert("성별 설정이 성공적으로 변경되었습니다.");
+                    }                    
+                },
+                error : function(){
+                    alert("성별 설정 변경에 실패하였습니다.");
+                },
+                complete : function(){
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+
 	
 	$(function(){
 	    $("#memPhoto").change(function(){

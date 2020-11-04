@@ -21,6 +21,7 @@ public class MemberMngmtDao {
 	
 	public void setMemOthers(MemberVO mvo) {
 		sqlSession.insert("member.setMemOthers",mvo);
+		
 	}
 	
 	public List<MemberVO> getMemApplicant(int start, int end, String searchOpt, String words) {
