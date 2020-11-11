@@ -38,7 +38,7 @@ public class BoardDao {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("str", str);
-		sqlSession.insert("board.createArticleTbl", map);
+		sqlSession.update("board.createArticleTbl", map);
 	}
 	
 	public void createCommentTbl(String boardCode) {
@@ -52,15 +52,20 @@ public class BoardDao {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("str", str);
-		sqlSession.insert("board.createCommentTbl", map);
+		sqlSession.update("board.createCommentTbl", map);
 	}
 	
 	public int getBoardChk(String boardCode) {
 		return sqlSession.selectOne("board.getBoardChk", boardCode);
 	}
 	
-	public List<BoardVO> getBoardList() {
-		return sqlSession.selectList("board.getBoardList");
+	public List<BoardVO> getBoardList(int start, int end, String searchOpt, String words) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchOpt",searchOpt);
+		map.put("words",words);
+		map.put("start",start);
+		map.put("end",end);
+		return sqlSession.selectList("board.getBoardList",map);
 	}
 	
 	public void setBoardDelete(String boardCode) {
@@ -81,5 +86,16 @@ public class BoardDao {
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("str", str);
 		sqlSession.insert("board.dropCommentTbl",map);
+	}
+	
+	public int getBoardCount(String searchOpt, String words) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("searchOpt",searchOpt);
+		map.put("words",words);
+		return sqlSession.selectOne("board.getBoardCount",map);
+	}
+	
+	public void deleteBoardAll(String boardCode) {
+		sqlSession.delete("board.deleteBoardAll", boardCode);
 	}
 }

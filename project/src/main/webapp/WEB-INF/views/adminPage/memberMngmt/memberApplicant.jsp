@@ -61,7 +61,7 @@
 						</tr>
 					</c:if>
                     <c:forEach items="${list}" var="mem" varStatus="status">
-	                    <tr class="center">
+	                    <tr class="center trHover">
 	                        <td><input type="checkbox" name="chk" class="chk" value="${mem.num}" data-uid="${mem.num}"></td>
 	                        <td>${(count - status.index) - ( (curPage - 1) * end )}</td>
 	                        <td>${mem.memRegdate}</td>

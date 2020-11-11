@@ -32,8 +32,8 @@ public class BoardSrv {
 		return boardDao.getBoardChk(boardCode);
 	}
 	
-	public List<BoardVO> getBoardList() {
-		return boardDao.getBoardList();
+	public List<BoardVO> getBoardList(int start, int end, String searchOpt, String words) {
+		return boardDao.getBoardList(start, end, searchOpt, words);
 	}
 	
 	public void setBoardDelete(String boardCode) {
@@ -46,5 +46,13 @@ public class BoardSrv {
 	
 	public void dropCommentTbl(String boardCode) {
 		boardDao.dropCommentTbl(boardCode);
+	}
+	
+	public int getBoardCount(String searchOpt, String words) {
+		return boardDao.getBoardCount(searchOpt, words);
+	}
+	
+	public void deleteBoardAll(String boardCode) {
+		boardDao.deleteBoardAll(boardCode);
 	}
 }

@@ -63,7 +63,7 @@
 						</tr>
 					</c:if>
                     <c:forEach items="${list}" var="mem" varStatus="status">
-	                    <tr class="center">
+	                    <tr class="center trHover">
 	                        <td><input type="checkbox" name="chk" class="chk" data-uid="${mem.num}" /></td>
 	                        <td>${(count - status.index) - ( (curPage - 1) * end )}</td>
 	                        <td>${mem.memBuseoName}</td>
@@ -155,21 +155,6 @@
 					</c:forEach>
 					
 					<c:choose>
-						<c:when test="${curPage >= 1}">
-							<a href="${pageContext.request.contextPath}/member/memberList?curPage=${totalPage}&searchOpt=${searchOpt}&words=${words}">
-								<span class="page">
-									<i class="fas fa-angle-double-right"></i>
-								</span>
-							</a>
-						</c:when>
-						<c:otherwise>
-							<span class="page">
-								<i class="fas fa-angle-double-right"></i>
-							</span>
-						</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
 						<c:when test="${curPage != totalPage}">
 							<a href="${pageContext.request.contextPath}/member/memberList?curPage=${curPage+1}&searchOpt=${searchOpt}&words=${words}">
 								<span class="page">
@@ -180,6 +165,20 @@
 						<c:otherwise>
 							<span class="page">
 								<i class="fas fa-angle-right"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${curPage >= 1}">
+							<a href="${pageContext.request.contextPath}/member/memberList?curPage=${totalPage}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-double-right"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-double-right"></i>
 							</span>
 						</c:otherwise>
 					</c:choose>
