@@ -118,4 +118,20 @@ public class BoardCtr {
 		}
 		return "success";
 	}
+	
+	// (모달) 게시판 설정 불러오기
+	@RequestMapping(value="/board_modify", method = RequestMethod.POST)
+	@ResponseBody
+	public BoardVO getBoardOne(int bid) {
+		BoardVO bvo = boardSrv.getBoardOne(bid);
+		return bvo;
+	}
+	
+	// (모달) 게시판 설정 변경
+	@RequestMapping(value="/board_change", method = RequestMethod.POST)
+	@ResponseBody
+	public String setBoardChange(@ModelAttribute BoardVO bvo) {
+		boardSrv.changeBoardSet(bvo);
+		return "success";
+	}
 }

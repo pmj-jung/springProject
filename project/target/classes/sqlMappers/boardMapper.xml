@@ -90,4 +90,25 @@
 		DELETE FROM board 
 		WHERE boardCode = #{boardCode} 
 	</delete>
+	
+	<!-- (모달) 게시판 설정 불러오기 -->
+	<select id="getBoardOne" parameterType="int" resultType="boardvo">
+		SELECT * FROM board WHERE bid = #{bid}
+	</select>
+	
+	<!-- (모달) 게시판 설정 변경 -->
+	<update id="changeBoardSet" parameterType="boardvo">
+		UPDATE board SET 
+		boardGrp	= #{MboardGrp},
+		boardCode	= #{MboardCode},
+		boardColor	= #{MboardColor},
+		boardMaker	= #{MboardMaker},
+		boardTitle	= #{MboardTitle},
+		boardType	= #{MboardType},
+		boardRead	= #{MboardRead},
+		boardWrite	= #{MboardWrite},
+		boardReply	= #{MboardReply},
+		boardDownload	= #{MboardDownload} 
+		WHERE boardCode = #{MboardCode}
+	</update>
 </mapper>

@@ -18,7 +18,20 @@ public class BoardVO {
 	private Date boardRegdate;
 	
 	private String buseo_name; //부서코드를 글자로 변환해서 담기 위한 변수
-
+	
+	/*** 모달창의 값을 받기 위한 변수 ***/
+	private String MboardGrp;
+	private String MboardCode;
+	private String MboardColor;
+	private String MboardMaker;
+	private String MboardTitle;
+	private String MboardType;
+	private String MboardRead;
+	private String MboardWrite;
+	private String MboardReply;
+	private String MboardDownload;
+	/*** 모달창의 값을 받기 위한 변수 ***/
+	
 	public int getBid() {
 		return bid;
 	}
@@ -122,7 +135,85 @@ public class BoardVO {
 	public void setBuseo_name(String buseo_name) {
 		this.buseo_name = buseo_name;
 	}
-	
-	
+
+	public String getMboardGrp() {
+		return MboardGrp;
+	}
+
+	public void setMboardGrp(String mboardGrp) {
+		MboardGrp = mboardGrp;
+	}
+
+	public String getMboardCode() {
+		return MboardCode;
+	}
+
+	public void setMboardCode(String mboardCode) {
+		MboardCode = mboardCode;
+	}
+
+	public String getMboardColor() {
+		return MboardColor;
+	}
+
+	public void setMboardColor(String mboardColor) {
+		MboardColor = mboardColor;
+	}
+
+	public String getMboardMaker() {
+		return MboardMaker;
+	}
+
+	public void setMboardMaker(String mboardMaker) {
+		MboardMaker = mboardMaker;
+	}
+
+	public String getMboardTitle() {
+		return MboardTitle;
+	}
+
+	public void setMboardTitle(String mboardTitle) {
+		MboardTitle = mboardTitle;
+	}
+
+	public String getMboardType() {
+		return MboardType;
+	}
+
+	public void setMboardType(String mboardType) {
+		MboardType = mboardType;
+	}
+
+	public String getMboardRead() {
+		return MboardRead;
+	}
+
+	public void setMboardRead(String mboardRead) {
+		MboardRead = mboardRead;
+	}
+
+	public String getMboardWrite() {
+		return MboardWrite;
+	}
+
+	public void setMboardWrite(String mboardWrite) {
+		MboardWrite = mboardWrite;
+	}
+
+	public String getMboardReply() {
+		return MboardReply;
+	}
+
+	public void setMboardReply(String mboardReply) {
+		MboardReply = mboardReply;
+	}
+
+	public String getMboardDownload() {
+		return MboardDownload;
+	}
+
+	public void setMboardDownload(String mboardDownload) {
+		MboardDownload = mboardDownload;
+	}
 	
 }

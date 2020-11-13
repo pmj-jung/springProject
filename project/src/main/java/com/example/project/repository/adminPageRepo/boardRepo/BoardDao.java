@@ -98,4 +98,12 @@ public class BoardDao {
 	public void deleteBoardAll(String boardCode) {
 		sqlSession.delete("board.deleteBoardAll", boardCode);
 	}
+	
+	public BoardVO getBoardOne(int bid){
+		return sqlSession.selectOne("board.getBoardOne", bid);
+	}
+	
+	public void changeBoardSet(BoardVO bvo) {
+		sqlSession.update("board.changeBoardSet", bvo);
+	}
 }

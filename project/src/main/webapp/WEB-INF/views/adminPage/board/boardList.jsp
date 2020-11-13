@@ -15,8 +15,152 @@
     td {
         border: 1px solid #d6dce7;
     }
+    
+    /* modal css */
+    .flex-wrap {
+	    flex-wrap: wrap;
+	}
+    .modal-wrapper {
+        background-color: rgba(0, 0, 0, 0.3);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        visibility: hidden;
+        /* 눌렀을 때 나와야 하니깐 = visibility */
+        transition: 0.3s;
+    }
+
+    .modal-wrapper.open {
+        visibility: visible;
+        opacity: 1;
+        transition: 0.3s;
+    }
+
+    .modal-wrapper.open .modal {
+        opacity: 1;
+    }
+
+    .modal {
+        width: 900px;
+        height: 30vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        opacity: 0;
+        border-radius: 5px;
+        padding: 20px;
+
+        box-shadow: -60px 0px 100px -90px #000,
+            60px 0px 100px -90px #000;
+    }
+
+    /* modal css */
 </style>
+<script>
+    $(function () {
+        $(".popup").click(function () {
+            $(".modal-wrapper").toggleClass("open");
+        });
+    });
+</script>
 <body>
+<!-- ***************** 모달 ***************** -->
+	<div class="modal-wrapper">
+        <div class="modal flex flex-justify flex-wrap" style="align-content: flex-start;">
+            <div class="contentHead">
+                <h3 class="font18">게시판 설정 수정</h3>
+            </div>
+            <a href="" class="popup font20">
+                <i class="fas fa-window-close"> 창닫기</i>
+            </a>
+            <div class="table-wrap m-t20 flex" style="width:100%;height:80vh;flex-wrap: nowrap; overflow-y: auto;">
+            	<form method="post" id="modalFrm">
+	                <table>
+	                    <tr class="center">
+	                        <td class="bg-gray td-10">게시판그룹</td>
+	                        <td class="td-15 p-lr3">
+	                            <select class="sel-100" id="MboardGrp" name="MboardGrp">
+	                            </select>
+	                        </td>
+	                        <td class="bg-gray td-10">게시판코드</td>
+	                        <td class="td-15 p-lr3">
+	                            <input type="text" class="input-100" id="MboardCode" name="MboardCode" readonly/>
+	                        </td>
+	                        <td class="bg-gray td-10">게시판색상</td>
+	                        <td class="td-15 p-lr3">
+	                            <select class="sel-100" id="MboardColor" name="MboardColor">
+	                                <option value="#005AA7">#005AA7</option>
+                                    <option value="#2A9FBA">#2A9FBA</option>
+                                    <option value="#5CCEC4">#5CCEC4</option>
+                                    <option value="#A70017">#A70017</option>
+                                    <option value="#CE5CA9">#CE5CA9</option>
+	                            </select>
+	                        </td>
+	                        <td class="bg-gray td-10">게시판 관리자</td>
+	                        <td class="td-15 p-lr3">
+	                            <input type="text" class="input-100" id="MboardMaker" name="MboardMaker" readonly/>
+	                        </td>
+	                    </tr>
+	                    <tr class="center">
+	                        <td class="bg-gray td-10">게시판제목</td>
+	                        <td colspan="5" class="td-90 p-lr3">
+	                            <input type="text" class="input-100" id="MboardTitle" name="MboardTitle"/>
+	                        </td>
+	                        <td class="bg-gray td-10">게시판타입</td>
+	                        <td colspan="2" class="td-15 p-lr3">
+	                            <select class="sel-100" id="MboardType" name="MboardType">
+	                                <option value="1">답변형 게시판</option>
+	                                <option value="2">공지사항 게시판</option>
+	                                <option value="3">자유 게시판</option>
+	                                <option value="4">익명 게시판</option>
+	                            </select>
+	                            <span class="color"></span>
+	                        </td>
+	                    </tr>
+	                    <tr class="center">
+	                        <td class="bg-gray td-10">읽기권한</td>
+	                        <td class="td-15 p-lr3">
+	                            <select class="sel-100" id="MboardRead" name="MboardRead">
+	                                <option value="0">모두</option>
+	                                <option value="1">직원만</option>
+	                            </select>
+	                        </td>
+	                        <td class="bg-gray td-10">쓰기권한</td>
+	                        <td class="td-15 p-lr3">
+	                            <select class="sel-100" id="MboardWrite" name="MboardWrite">
+	                                <option value="0">모두</option>
+	                                <option value="1">직원만</option>
+	                            </select>
+	                        </td>
+	                        <td class="bg-gray td-10">댓글권한</td>
+	                        <td class="td-15 p-lr3">
+	                            <select class="sel-100" id="MboardReply" name="MboardReply">
+	                                <option value="0">모두</option>
+	                                <option value="1">직원만</option>
+	                            </select>
+	                        </td>
+	                        <td class="bg-gray td-10">다운권한</td>
+	                        <td class="td-15 p-lr3">
+	                            <select class="sel-100" id="MboardDownload" name="MboardDownload">
+	                                <option value="0">모두</option>
+	                                <option value="1">직원만</option>
+	                            </select>
+	                        </td>
+	                    </tr>
+	                </table>
+	                <div class="center m-t10">
+                        <button class="btn-on" id="modalBtn">정보수정</button>
+                        <button type="reset" class="btn-off">새로고침</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<!-- ***************** 모달 ***************** -->
     <%@ include file="/WEB-INF/views/include/ADMIN_LOGOnINFO.jsp" %>
     <main>
         <%@ include file="/WEB-INF/views/include/ADMIN_MENU.jsp" %>
@@ -61,7 +205,7 @@
                                 </td>
                                 <td class="bg-gray td-10">게시판타입</td>
                                 <td colspan="2" class="td-15 p-lr3">
-                                    <select name="boardType" class="sel-100">
+                                    <select name="boardType" id="boardType" class="sel-100">
                                         <option value="1">답변형 게시판</option>
                                         <option value="2">공지사항 게시판</option>
                                         <option value="3">자유 게시판</option>
@@ -73,28 +217,28 @@
                             <tr class="center">
                                 <td class="bg-gray td-10">읽기권한</td>
                                 <td class="td-15 p-lr3">
-                                    <select class="sel-100" name="boardRead">
+                                    <select class="sel-100" name="boardRead" id="boardRead">
                                         <option value="0">모두</option>
                                         <option value="1">직원만</option>
                                     </select>
                                 </td>
                                 <td class="bg-gray td-10">쓰기권한</td>
                                 <td class="td-15 p-lr3">
-                                    <select class="sel-100" name="boardWrite">
+                                    <select class="sel-100" name="boardWrite" id="boardWrite">
                                         <option value="0">모두</option>
                                         <option value="1">직원만</option>
                                     </select>
                                 </td>
                                 <td class="bg-gray td-10">댓글권한</td>
                                 <td class="td-15 p-lr3">
-                                    <select class="sel-100" name="boardReply">
+                                    <select class="sel-100" name="boardReply" id="boardReply">
                                         <option value="0">모두</option>
                                         <option value="1">직원만</option>
                                     </select>
                                 </td>
                                 <td class="bg-gray td-10">다운권한</td>
                                 <td class="td-15 p-lr3">
-                                    <select class="sel-100" name="boardDownload">
+                                    <select class="sel-100" name="boardDownload" id="boardDownload">
                                         <option value="0">모두</option>
                                         <option value="1">직원만</option>
                                     </select>
@@ -110,7 +254,7 @@
                 <div class="contentHead">
                     <h3 class="font18">게시판 > 게시판 목록</h3>
                 </div>
-                <div class="m-b5" style="text-align:right;">검색된 게시판 수 : ${count} 개 ( ${curPage} of ${totalPage} pages )</div>
+                <div class="m-b5" style="text-align:left;">검색된 게시판 수 : ${count} 개 ( ${curPage} of ${totalPage} pages )</div>
                 <div class="flex flex-justify">
 					<div class="btns">
 	                    <button class="btn-off m-b5" id="deleteAll">선택삭제</button>
@@ -164,7 +308,7 @@
 	                            <td>${board.boardReply}</td>
 	                            <td>${board.boardDownload}</td>
 	                            <td>
-	                                <button class="s-btn-on">수정</button>
+	                                <button class="s-btn-on popup" onClick="modifyBoard('${board.bid}');">수정</button>
 	                                <button class="s-btn-off" onClick="boardDel('${board.boardCode}');">삭제</button>
 	                            </td>
 	                        </tr>
@@ -280,6 +424,32 @@
 	}
 </script>
 <script>
+	/******모달******/
+	function changeBoardSet(){
+        var msg = "해당 게시판의 변경사항을 저장하시겠습니까?";
+        if(confirm(msg)){
+            $.ajax({
+                url     : "${pageContext.request.contextPath}/board/board_change",
+                type    : "POST",
+                data    : $("#modalFrm").serialize(),
+                success : function(resData){
+                   	alert( $("#MboardTitle").val() + "게시판의 설정이 성공적으로 변경되었습니다.");
+                   	window.location.href = "${pageContext.request.contextPath}/board/boardList";
+                },
+                error   : function(){
+                    alert("시스템에러");
+                }
+            });
+        }
+	}
+
+	$("#modalBtn").click(function(){
+		changeBoardSet();
+	});
+	/******모달******/
+</script>
+<script>
+	// 게시판 생성
 	function boardMake(){
 		if( $.trim($("#boardCode").val()) == '' ) {
 			alert("게시판 코드를 입력하세요.");
@@ -324,6 +494,10 @@
 	        success     : function(resData){
 	            $.each(resData, function(key, value){
 	                $("#boardGrp").append(
+	                    "<option value=" + value.buseo_id + ">" 
+	                    + value.buseo_name + "</option>"
+	                );
+	                $("#MboardGrp").append(
 	                    "<option value=" + value.buseo_id + ">" 
 	                    + value.buseo_name + "</option>"
 	                );
@@ -440,4 +614,37 @@
 		});
 	});
 </script>
+<script>
+	/******모달******/
+	function modifyBoard(bid){
+	    var formData = {
+	        bid   : bid
+	    };
+	
+	    $.ajax({
+	        url     : "${pageContext.request.contextPath}/board/board_modify",
+	        type    : "POST",
+	        data    : formData,
+	        success : function(resData){
+	        	$("#MboardGrp").val(resData.boardGrp);
+	        	$("#MboardCode").val(resData.boardCode);
+	            $("#MboardColor").val(resData.boardColor);
+	            $("#MboardTitle").val(resData.boardTitle);
+	            $("#MboardType").val(resData.boardType);
+	            $("#MboardMaker").val(resData.boardMaker);
+	            $("#MboardRead").val(resData.boardRead);
+	            $("#MboardWrite").val(resData.boardWrite);
+	            $("#MboardReply").val(resData.boardReply);
+	            $("#MboardDownload").val(resData.boardDownload);
+	        },
+	        error   : function(){
+	            alert("시스템에러");
+	        },
+	        complete    : function(){
+	        }
+	    });
+	}
+	/******모달******/
+</script>
+
 </html>

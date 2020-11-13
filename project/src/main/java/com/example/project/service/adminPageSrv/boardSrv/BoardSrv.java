@@ -55,4 +55,12 @@ public class BoardSrv {
 	public void deleteBoardAll(String boardCode) {
 		boardDao.deleteBoardAll(boardCode);
 	}
+	
+	public BoardVO getBoardOne(int bid){
+		return boardDao.getBoardOne(bid);
+	}
+	
+	public void changeBoardSet(BoardVO bvo) {
+		boardDao.changeBoardSet(bvo);
+	}
 }
