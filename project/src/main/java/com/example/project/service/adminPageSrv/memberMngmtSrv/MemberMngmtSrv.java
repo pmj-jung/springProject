@@ -1,6 +1,5 @@
 package com.example.project.service.adminPageSrv.memberMngmtSrv;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,10 @@ public class MemberMngmtSrv {
 	
 	public MemberVO getMemOne(String sessionNum) {
 		return memMngmtDao.getMemOne(sessionNum);
+	}
+	
+	public MemberVO getMemOthersOne(String sessionNum) {
+		return memMngmtDao.getMemOthersOne(sessionNum);
 	}
 	
 	public void setMemOthers(MemberVO mvo) {

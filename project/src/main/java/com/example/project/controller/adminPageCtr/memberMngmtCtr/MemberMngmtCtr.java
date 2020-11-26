@@ -120,13 +120,16 @@ public class MemberMngmtCtr {
 	@RequestMapping(value = "/memberInsert", method = RequestMethod.GET)
 	@ResponseBody
 	public ModelAndView getMemOne(HttpSession session) {
-
 		String sessionNum = (String) session.getAttribute("memNum");
 
 		ModelAndView mav = new ModelAndView();
 		MemberVO memOne = memMngmtSrv.getMemOne(sessionNum);
+		MemberVO memOthersOne = memMngmtSrv.getMemOthersOne(sessionNum);
+		
 		mav.addObject("memOne", memOne);
+		mav.addObject("memOthersOne", memOthersOne);
 		mav.setViewName("adminPage/memberMngmt/memberInsert");
+		
 		return mav;
 	}
 

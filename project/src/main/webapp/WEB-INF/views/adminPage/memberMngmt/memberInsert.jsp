@@ -99,23 +99,23 @@
                                     </td>
                                     <td>내선번호</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memCp" id="memCp" class="input-100"/>
+                                        <input type="text" name="memCp" id="memCp" class="input-100" value="${memOthersOne.memCp}"/>
                                     </td>
                                 </tr>
                                 <tr class="center">
                                     <td>휴대번호</td>
                                     <td colspan="2" class="p-lr5">
-                                        <input type="text" name="memTel" id="memTel" class="input-100"/>
+                                        <input type="text" name="memTel" id="memTel" class="input-100" value="${memOthersOne.memTel}"/>
                                     </td>
                                     <td>이메일</td>
                                     <td colspan="2" class="p-lr5">
-                                        <input type="text" name="memEmail" id="memEmail" class="input-100"/>
+                                        <input type="text" name="memEmail" id="memEmail" class="input-100" value="${memOthersOne.memEmail}"/>
                                     </td>
                                 </tr>
                                 <tr class="center">
                                     <td>생년월일</td>
                                     <td class="flex flex-justify p-lr5">
-                                        <input type="text" name="memBirth" id="memBirth" class="input-100"/>
+                                        <input type="text" name="memBirth" id="memBirth" class="input-100" value="${memOthersOne.memBirth}"/>
                                     </td>
                                     <td>입사일</td>
                                     <td class="p-lr5">
@@ -124,16 +124,16 @@
                                     <td>채용형태</td>
                                     <td class="p-lr5">
                                         <select name="memRecruit" id="memRecruit" class="sel-100">
-                                            <option value="0">인턴</option>
-                                            <option value="1">임시직</option>
-                                            <option value="2">정규직</option>
+                                        	<option value="0" <c:if test="${memOthersOne.memRecruit eq '0'}">selected</c:if> >인턴</option>
+                                            <option value="1" <c:if test="${memOthersOne.memRecruit eq '1'}">selected</c:if> >임시직</option>
+                                            <option value="2" <c:if test="${memOthersOne.memRecruit eq '2'}">selected</c:if> >정규직</option>
                                         </select>
                                     </td>
                                 </tr>
                                 <tr class="center">
                                     <td>주소</td>
                                     <td colspan="5" class="p-lr5">
-                                        <input type="text" name="memAddr" id="memAddr" class="input-100" />
+                                        <input type="text" name="memAddr" id="memAddr" class="input-100"  value="${memOthersOne.memAddr}"/>
                                     </td>
                                 </tr>
                             </table>
@@ -157,11 +157,11 @@
                                     </td>
                                     <td class="td-10">취미</td>
                                     <td class="td-10 p-lr5">
-                                        <input type="text" name="memHobby" id="memHobby" class="input-100" />
+                                        <input type="text" name="memHobby" id="memHobby" class="input-100" value="${memOthersOne.memHobby}"/>
                                     </td>
                                     <td class="td-10">특기</td>
                                     <td class="td-10 p-lr5">
-                                        <input type="text" name="memSpeciality" id="memSpeciality" class="input-100" />
+                                        <input type="text" name="memSpeciality" id="memSpeciality" class="input-100" value="${memOthersOne.memSpeciality}" />
                                     </td>
                                 </tr>
                                 <tr class="center">
@@ -174,7 +174,7 @@
                                     </td>
                                     <td class="td-10">장애등록번호</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memDisabilityNum" id="memDisabilityNum" class="input-100" />
+                                        <input type="text" name="memDisabilityNum" id="memDisabilityNum" class="input-100" value="${memOthersOne.memDisabilityNum}"/>
                                     </td>
                                     <td class="td-10">보훈대상여부</td>
                                     <td class="p-lr5">
@@ -185,18 +185,18 @@
                                     </td>
                                     <td class="td-10">보훈번호</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memRewardNum" id="memRewardNum" class="input-100" />
+                                        <input type="text" name="memRewardNum" id="memRewardNum" class="input-100" value="${memOthersOne.memRewardNum}" />
                                     </td>
                                 </tr>
                                 <tr class="center">
                                     <td class="td-10">최종학력</td>
                                     <td colspan="2" class="p-lr5">
-                                        <input type="text" name="memFinalEdu" id="memFinalEdu" class="input-100" />
+                                        <input type="text" name="memFinalEdu" id="memFinalEdu" class="input-100" value="${memOthersOne.memFinalEdu}" />
                                     </td>
                                     <td class="td-10">키/몸무게</td>
                                     <td colspan="2" class="p-lr5">
-                                        <input type="text" name="memHeight" id="memHeight" class="input-40" placeholder="cm"/>
-                                        <input type="text" name="memWeight" id="memWeight" class="input-40" placeholder="kg"/>
+                                        <input type="text" name="memHeight" id="memHeight" class="input-40" placeholder="cm" value="${memOthersOne.memHeight}"/>
+                                        <input type="text" name="memWeight" id="memWeight" class="input-40" placeholder="kg" value="${memOthersOne.memWeight}"/>
                                     </td>
                                     <td class="td-10">종교</td>
                                     <td class="p-lr5">
@@ -213,43 +213,43 @@
                                 <tr class="center">
                                     <td>보유자격1</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memLicense1" id="memLicense1" class="input-100" />
+                                        <input type="text" name="memLicense1" id="memLicense1" class="input-100" value="${memOthersOne.memLicense1}"/>
                                     </td>
                                     <td>보유자격2</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memLicense2" id="memLicense2" class="input-100" />
+                                        <input type="text" name="memLicense2" id="memLicense2" class="input-100" value="${memOthersOne.memLicense2}"/>
                                     </td>
                                     <td>보유자격3</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memLicense3" id="memLicense3" class="input-100" />
+                                        <input type="text" name="memLicense3" id="memLicense3" class="input-100" value="${memOthersOne.memLicense3}"/>
                                     </td>
                                     <td>보유자격4</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memLicense4" id="memLicense4" class="input-100" />
+                                        <input type="text" name="memLicense4" id="memLicense4" class="input-100" value="${memOthersOne.memLicense4}" />
                                     </td>
                                 </tr>
                                 <tr class="center">
                                     <td>어학사항1</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memLang1" id="memLang1" class="input-100" />
+                                        <input type="text" name="memLang1" id="memLang1" class="input-100" value="${memOthersOne.memLang1}" />
                                     </td>
                                     <td>어학사항2</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memLang2" id="memLang2" class="input-100" />
+                                        <input type="text" name="memLang2" id="memLang2" class="input-100" value="${memOthersOne.memLang2}" />
                                     </td>
                                     <td>어학사항3</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memLang3" id="memLang3" class="input-100" />
+                                        <input type="text" name="memLang3" id="memLang3" class="input-100" value="${memOthersOne.memLang3}" />
                                     </td>
                                     <td>어학사항4</td>
                                     <td class="p-lr5">
-                                        <input type="text" name="memLang4" id="memLang4" class="input-100" />
+                                        <input type="text" name="memLang4" id="memLang4" class="input-100" value="${memOthersOne.memLang4}" />
                                     </td>
                                 </tr>
                                 <tr class="center">
                                     <td>비고</td>
                                     <td colspan="7" class="p-lr5">
-                                        <input type="text" name="memComment" id="memComment" class="input-100" />
+                                        <input type="text" name="memComment" id="memComment" class="input-100" value="${memOthersOne.memComment}" />
                                     </td>
                                 </tr>
                             </table>

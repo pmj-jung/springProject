@@ -19,9 +19,20 @@ public class MemberMngmtDao {
 		return sqlSession.selectOne("member.getMemOne",sessionNum);
 	}
 	
+	public MemberVO getMemOthersOne(String sessionNum) {
+		return sqlSession.selectOne("member.getMemOthersOne",sessionNum);
+	}
+	
 	public void setMemOthers(MemberVO mvo) {
-		sqlSession.insert("member.setMemOthers",mvo);
+		int result = sqlSession.selectOne("member.existsMemOthers", mvo);
 		
+		if ( result == 0 ) {
+			// member_others TBL에 세션멤버의 정보가 있음
+			sqlSession.update("member.updateMemOthers", mvo);
+		}else {
+			// member_others TBL에 세션멤버의 정보가 없
+			sqlSession.insert("member.setMemOthers",mvo);
+		}
 	}
 	
 	public List<MemberVO> getMemApplicant(int start, int end, String searchOpt, String words) {

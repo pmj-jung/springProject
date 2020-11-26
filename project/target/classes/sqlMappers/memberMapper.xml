@@ -22,7 +22,6 @@
 	
 	<!-- 사용자정보 한개 불러오기 -->
 	<select id="getMemOne" parameterType="String" resultType="membervo">
-		
 		SELECT 
 		num AS num,
 		mem_name AS memName,
@@ -37,6 +36,47 @@
 		WHERE M.mem_buseo = B.buseo_id AND 
 		M.mem_grade = G.grade_id AND 
 		mem_num = #{sessionNum}
+	</select>
+	
+	<!-- 사용자상세정보 한개 불러오기 -->
+	<select id="getMemOthersOne" parameterType="String" resultType="membervo">
+		SELECT 
+		mem_oid AS memOID,
+		mem_cp AS memCp,
+		mem_tel AS memTel,
+		mem_email AS memEmail,
+		mem_birth AS memBirth,
+		mem_recruit AS memRecruit,
+		mem_addr AS memAddr,
+		mem_married AS memMarried,
+		mem_service AS memService,
+		mem_hobby AS memHobby,
+		mem_speciality AS memSpeciality,
+		mem_disability AS memDisability,
+		mem_disability_num AS memDisabilityNum,
+		mem_reward AS memReward,
+		mem_reward_num AS memRewardNum,
+		mem_final_edu AS memFinalEdu,
+		mem_height AS memHeight,
+		mem_weight AS memWeight,
+		mem_religion AS memReligion,
+		mem_license1 AS memLicense1,
+		mem_license2 AS memLicense2,
+		mem_license3 AS memLicense3,
+		mem_license4 AS memLicense4,
+		mem_lang1 AS memLang1,
+		mem_lang2 AS memLang2,
+		mem_lang3 AS memLang3,
+		mem_lang4 AS memLang4,
+		mem_comment AS memComment 
+		FROM member_others 
+		WHERE num_fk = (SELECT num FROM member WHERE mem_num = #{sessionNum})
+	</select>
+	
+	<!-- 사용자상세정보테이블에 사용자정보가 있는지 확인 -->
+	<select id="existsMemOthers" parameterType="membervo" resultType="int">
+		SELECT COUNT(mem_oid) FROM member_others 
+		WHERE num_fk = #{memOID}
 	</select>
 	
 	<!-- 관리자페이지에서 사용자정보 입력하기(member_others 테이블에 추가) -->
@@ -71,6 +111,39 @@
 		mem_comment		= #{memComment},
 		num_fk			= #{numFK}
 	</insert>
+	
+	<!-- 관리자페이지에서 사용자정보 업데이트하기(member_others 테이블 업데이트) -->
+	<update id="updateMemOthers" parameterType="membervo">
+		UPDATE member_others SET 
+		mem_cp		= #{memCp},
+		mem_tel		= #{memTel},
+		mem_email	= #{memEmail},
+		mem_birth	= #{memBirth},
+		mem_recruit	= #{memRecruit},
+		mem_addr	= #{memAddr},
+		mem_married	= #{memMarried},
+		mem_service	= #{memService},
+		mem_hobby	= #{memHobby},
+		mem_speciality		= #{memSpeciality}, 
+		mem_disability		= #{memDisability},
+		mem_disability_num	= #{memDisabilityNum},
+		mem_reward		= #{memReward},
+		mem_reward_num	= #{memRewardNum},
+		mem_final_edu	= #{memFinalEdu},
+		mem_height	= #{memHeight},
+		mem_weight	= #{memWeight},
+		mem_religion	= #{memReligion},
+		mem_license1	= #{memLicense1},
+		mem_license2	= #{memLicense2},
+		mem_license3	= #{memLicense3},
+		mem_license4	= #{memLicense4},
+		mem_lang1		= #{memLang1},
+		mem_lang2		= #{memLang2},
+		mem_lang3		= #{memLang3},
+		mem_lang4		= #{memLang4},
+		mem_comment		= #{memComment} 
+		WHERE num_fk = #{numFK}
+	</update>
 	
 	<!-- 미승인 회원 검색 -->
 	<sql id="search">

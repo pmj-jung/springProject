@@ -44,6 +44,7 @@
 
     .modal {
         width: 900px;
+        min-height: 260px;
         height: 30vh;
         position: absolute;
         top: 50%;
