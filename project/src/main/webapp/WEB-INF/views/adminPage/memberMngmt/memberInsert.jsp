@@ -88,7 +88,7 @@
                                 <tr class="center">
                                     <td>성별</td>
                                     <td class="p-lr5">
-								        <select onChange="changeGender(this.value,'${memOne.num}');" class="sel-100">
+								        <select name="memGender" id="memGender" class="sel-100">
 											<option value="M" <c:if test="${memOne.memGender eq 'M'}">selected</c:if> >남자</option>
 											<option value="F" <c:if test="${memOne.memGender eq 'F'}">selected</c:if> >여자</option>
 										</select>
@@ -144,15 +144,15 @@
                                     <td class="td-10">결혼여부</td>
                                     <td class="td-10 p-lr5">
                                         <select name="memMarried" id="memMarried" class="sel-100">
-                                            <option value="F">미혼</option>
-                                            <option value="T">기혼</option>
+                                            <option value="F" <c:if test="${memOthersOne.memMarried eq 'F'}">selected</c:if> >미혼</option>
+                                            <option value="T" <c:if test="${memOthersOne.memMarried eq 'T'}">selected</c:if> >기혼</option>
                                         </select>
                                     </td>
                                     <td class="td-10">병역구분</td>
                                     <td class="td-10 p-lr5">
                                         <select name="memService" id="memService" class="sel-100">
-                                            <option value="T">필</option>
-                                            <option value="F">미필</option>
+                                            <option value="T" <c:if test="${memOthersOne.memService eq 'T'}">selected</c:if>>필</option>
+                                            <option value="F" <c:if test="${memOthersOne.memService eq 'F'}">selected</c:if>>미필</option>
                                         </select>
                                     </td>
                                     <td class="td-10">취미</td>
@@ -168,8 +168,8 @@
                                     <td class="td-10">장애여부</td>
                                     <td class="p-lr5">
                                         <select name="memDisability" id="memDisability" class="sel-100">
-                                            <option value="F">비장애</option>
-                                            <option value="T">장애</option>
+                                            <option value="F" <c:if test="${memOthersOne.memDisability eq 'F'}">selected</c:if>>비장애</option>
+                                            <option value="T" <c:if test="${memOthersOne.memDisability eq 'T'}">selected</c:if>>장애</option>
                                         </select>
                                     </td>
                                     <td class="td-10">장애등록번호</td>
@@ -179,8 +179,8 @@
                                     <td class="td-10">보훈대상여부</td>
                                     <td class="p-lr5">
                                         <select name="memReward" id="memReward" class="sel-100">
-                                            <option value="F">비대상</option>
-                                            <option value="T">대상</option>
+                                            <option value="F" <c:if test="${memOthersOne.memReward eq 'F'}">selected</c:if>>비대상</option>
+                                            <option value="T" <c:if test="${memOthersOne.memReward eq 'T'}">selected</c:if>>대상</option>
                                         </select>
                                     </td>
                                     <td class="td-10">보훈번호</td>
@@ -201,11 +201,11 @@
                                     <td class="td-10">종교</td>
                                     <td class="p-lr5">
                                         <select name="memReligion" id="memReligion" class="sel-100">
-                                            <option value="F">무교</option>
-                                            <option value="Chr">기독교</option>
-                                            <option value="Bud">불교</option>
-                                            <option value="Cat">천주교</option>
-                                            <option value="T">기타</option>
+                                            <option value="F" <c:if test="${memOthersOne.memReligion eq 'F'}">selected</c:if>>무교</option>
+                                            <option value="Chr" <c:if test="${memOthersOne.memReligion eq 'Chr'}">selected</c:if>>기독교</option>
+                                            <option value="Bud" <c:if test="${memOthersOne.memReligion eq 'Bud'}">selected</c:if>>불교</option>
+                                            <option value="Cat" <c:if test="${memOthersOne.memReligion eq 'Cat'}">selected</c:if>>천주교</option>
+                                            <option value="T" <c:if test="${memOthersOne.memReligion eq 'T'}">selected</c:if>>기타</option>
                                         </select>
                                         <!-- False/Christian/Buddhism/Catholic/True -->
                                     </td>

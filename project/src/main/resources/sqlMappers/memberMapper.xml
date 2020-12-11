@@ -76,7 +76,7 @@
 	<!-- 사용자상세정보테이블에 사용자정보가 있는지 확인 -->
 	<select id="existsMemOthers" parameterType="membervo" resultType="int">
 		SELECT COUNT(mem_oid) FROM member_others 
-		WHERE num_fk = #{memOID}
+		WHERE num_fk = #{numFK}
 	</select>
 	
 	<!-- 관리자페이지에서 사용자정보 입력하기(member_others 테이블에 추가) -->
@@ -143,6 +143,16 @@
 		mem_lang4		= #{memLang4},
 		mem_comment		= #{memComment} 
 		WHERE num_fk = #{numFK}
+	</update>
+	
+	<!-- 관리자페이지에서 사용자정보 업데이트하기(member 테이블 업데이트) -->
+	<update id="updateMem" parameterType="membervo">
+		UPDATE member SET 
+		mem_name = #{memName},
+		mem_buseo = #{memBuseoCode},
+		mem_grade = #{memGradeCode},
+		mem_gender = #{memGender} 
+		WHERE num = #{numFK}
 	</update>
 	
 	<!-- 미승인 회원 검색 -->

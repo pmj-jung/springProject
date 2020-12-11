@@ -57,7 +57,7 @@ public class MemberVO {
 	private String memLang3;
 	private String memLang4;
 	private String memComment;
-	private String numFK;
+	private int numFK;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
@@ -332,10 +332,10 @@ public class MemberVO {
 	public void setMemComment(String memComment) {
 		this.memComment = memComment;
 	}
-	public String getNumFK() {
+	public int getNumFK() {
 		return numFK;
 	}
-	public void setNumFK(String numFK) {
+	public void setNumFK(int numFK) {
 		this.numFK = numFK;
 	}
 	

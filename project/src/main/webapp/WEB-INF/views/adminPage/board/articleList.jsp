@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/ADMIN_HEADER.jsp"%>
-
-     
-
-    <script src="https://kit.fontawesome.com/2524621651.js" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css"> 
+<script src="https://kit.fontawesome.com/2524621651.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<link rel="stylesheet" href="css/board.css"> 
+
 <style>
     .board-list tr:first-child {
         background-color: #005AA7;
@@ -21,7 +18,7 @@
         border: 1px solid #d6dce7;
     }
 </style>
-<script src="js/table.js"></script>
+<script src="${pageContext.request.contextPath}/js/table.js"></script>
 <body>
     <main>
         <div class="mainContent bg-gray p10">
@@ -50,7 +47,7 @@
                 <div class="board-list">
                     <table>
                         <tr class="center font14">
-                            <td class="td-5"><input type="checkbox" /></td>
+                            <td class="td-5"><input type="checkbox" onClick="chkAll();" id="chkAll" /></td>
                             <td class="td-5">번호</td>
                             <td class="td-8">분류</td>
                             <td>게시물 제목</td>
@@ -61,7 +58,7 @@
                         </tr>
                         <tr class="center font14">
                             <td>
-                                <input type="checkbox" />
+                                <input type="checkbox" name="chk" class="chk" />
                             </td>
                             <td>멍</td>
                             <td>
@@ -81,25 +78,109 @@
                     </table>
                     
                 </div>
-                <div class="page-grp">
-                    <span class="page"><i class="fas fa-angle-left"></i></span>
-                    <span class="page"><i class="fas fa-angle-double-left"></i></span>
-    
-                    <span class="page active">1</span>
-                    <span class="page">2</span>
-                    <span class="page">3</span>
-                    <span class="page">4</span>
-                    <span class="page">5</span>
-    
-                    <span class="page"><i class="fas fa-angle-right"></i></span>
-                    <span class="page"><i class="fas fa-angle-double-right"></i></span>
-                </div>
+                <!-- 페이징 UI 시작 -->
+			<c:if test="${count > 0}">
+				<div class="page-grp center m-t10">
+					<c:choose>
+						<c:when test="${curPage > 1}">
+							<a href="${pageContext.request.contextPath}/board/boardList?curPage=1&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-double-left"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-double-left"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${curPage > 1}">
+							<a href="${pageContext.request.contextPath}/board/boardList?curPage=${curPage-1}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-left"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-left"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+				
+					<!-- 페이지 번호 출력 -->
+					<c:forEach begin = "${blockBegin}" end="${blockEnd}" var="num">
+						<c:if test="${ selected == num }">
+							<span class="page active">
+								<a href="#" style="color:#fff;">${num}</a>
+							</span>
+						</c:if>
+						
+						<c:if test="${ selected != num }">
+							<a href="${pageContext.request.contextPath}/board/boardList?curPage=${num}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									${num}
+								</span>
+							</a>
+						</c:if>	
+					</c:forEach>
+					
+					<c:choose>
+						<c:when test="${curPage != totalPage}">
+							<a href="${pageContext.request.contextPath}/board/boardList?curPage=${curPage+1}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-right"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-right"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${curPage >= 1}">
+							<a href="${pageContext.request.contextPath}/board/boardList?curPage=${totalPage}&searchOpt=${searchOpt}&words=${words}">
+								<span class="page">
+									<i class="fas fa-angle-double-right"></i>
+								</span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<span class="page">
+								<i class="fas fa-angle-double-right"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</c:if>
+			<!-- 페이징 UI 끝-->
             </div>
-
-            
-
-        </div>
         </div>
     </main>
 </body>
+<script>
+	var flag = false; 
+	function chkAll() {
+		var chk = document.getElementsByName("chk");
+		if( flag == false) {
+			flag = true;
+			for(var i = 0; i < chk.length; i++) {
+				chk[i].checked = true;
+			}
+			
+		}else{
+			flag = false;
+			for(var i = 0; i < chk.length; i++) {
+				chk[i].checked = false;
+			}
+		}
+		
+	}
+</script>
 </html>

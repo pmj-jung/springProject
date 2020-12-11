@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.project.model.MemberVO;
 import com.example.project.paging.Pager;
+import com.example.project.service.MemberSrv;
 import com.example.project.service.adminPageSrv.memberMngmtSrv.MemberMngmtSrv;
 
 @Controller
@@ -23,6 +24,9 @@ public class MemberMngmtCtr {
 
 	@Autowired
 	MemberMngmtSrv memMngmtSrv;
+	
+	@Autowired
+	MemberSrv memSrv;
 	
 	@Resource(name="uploadPath")
 	private String uploadPath;

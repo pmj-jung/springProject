@@ -24,14 +24,14 @@ public class MemberMngmtDao {
 	}
 	
 	public void setMemOthers(MemberVO mvo) {
+		sqlSession.update("member.updateMem", mvo);
 		int result = sqlSession.selectOne("member.existsMemOthers", mvo);
-		
 		if ( result == 0 ) {
-			// member_others TBL에 세션멤버의 정보가 있음
-			sqlSession.update("member.updateMemOthers", mvo);
-		}else {
 			// member_others TBL에 세션멤버의 정보가 없
 			sqlSession.insert("member.setMemOthers",mvo);
+		}else {
+			// member_others TBL에 세션멤버의 정보가 있음
+			sqlSession.update("member.updateMemOthers", mvo);
 		}
 	}
 	
