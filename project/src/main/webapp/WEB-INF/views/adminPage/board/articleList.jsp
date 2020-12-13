@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/ADMIN_HEADER.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/board.css"> 
-<script src="https://kit.fontawesome.com/2524621651.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -18,17 +16,17 @@
         border: 1px solid #d6dce7;
     }
 </style>
-<script src="${pageContext.request.contextPath}/js/table.js"></script>
 <body>
     <main>
+	    <%@ include file="/WEB-INF/views/adminPage/board/BOARD_MENU.jsp" %>
         <div class="mainContent bg-gray p10">
             <div class="page-main-wrap bg-white p10">
-                <div class="contentHead flex flex-justify">
-                    <h3>게시판</h3>
+                <div class="contentHead p-b10 flex flex-justify">
+                    <h2 style="color:#A7005A;">${boardTitle}</h2>
                 </div>
                 <div class="btn-wrap flex flex-justify">
                     <div class="btns">
-                        <button type="button" class="btn-on" onclick="location.href='memberInsert.html'">게시글작성</button>
+                        <button type="button" class="btn-on" onclick="location.href='memberInsert.html'" style="background-color:${boardColor};">게시글작성</button>
                         <button type="button" class="btn-off">선택삭제</button>
                     </div>
                     <div class="search-box">
@@ -39,43 +37,47 @@
                                 <option value="">모두</option>
                             </select>
                             <input name="search" type="search" class="input" maxlength="20" tabindex="1" />
-                            <button type="submit" class="search-btn">검색</button>
+                            <button type="submit" class="search-btn" style="background-color:${boardColor};">검색</button>
                         </form>
                     </div>
                 </div>
                 <span>게시글 수 : n 개</span>
                 <div class="board-list">
-                    <table>
-                        <tr class="center font14">
-                            <td class="td-5"><input type="checkbox" onClick="chkAll();" id="chkAll" /></td>
-                            <td class="td-5">번호</td>
-                            <td class="td-8">분류</td>
-                            <td>게시물 제목</td>
-                            <td class="td-8">작성자</td>
-                            <td class="td-5">조회</td>
-                            <td class="td-8">날짜</td>
-                            <td class="td-8">관리</td>
-                        </tr>
-                        <tr class="center font14">
-                            <td>
-                                <input type="checkbox" name="chk" class="chk" />
-                            </td>
-                            <td>멍</td>
-                            <td>
-                                <a href="board_list.html" target="_blank" class="under">멍</a>
-                            </td>
-                            <td>#멍</td>
-                            <td>
-                                <a href="board_list.html" target="_blank" class="under">멍</a>
-                            </td>
-                            <td>멍</td>
-                            <td>멍</td>
-                            <td>
-                                <span class="s-btn-on">수정</span>
-                                <span class="s-btn-off">삭제</span>
-                            </td>
-                        </tr>
-                    </table>
+                	<form method="post" action="${pageContext.request.contextPath}/article/article_list">
+	                    <table>
+	                        <tr class="center font14" style="background-color:${boardColor};">
+	                            <td class="td-5"><input type="checkbox" onClick="chkAll();" id="chkAll" /></td>
+	                            <td class="td-5">번호</td>
+	                            <td class="td-8">분류</td>
+	                            <td style="width:53%;">게시물 제목</td>
+	                            <td class="td-8">작성자</td>
+	                            <td class="td-5">조회</td>
+	                            <td class="td-8">날짜</td>
+	                            <td class="td-8">관리</td>
+	                        </tr>
+	                        <tr class="center font14">
+	                            <td>
+	                                <input type="checkbox" name="chk" class="chk" />
+	                            </td>
+	                            <td>멍</td>
+	                            <td>
+	                                <a href="board_list.html" target="_blank" class="under">멍</a>
+	                            </td>
+	                            <td class="left p-lr5">
+	                            	<span class="one_line_txt" style="width:100%;">멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍</span>
+	                            </td>
+	                            <td>
+	                                <a href="board_list.html" target="_blank" class="under">멍</a>
+	                            </td>
+	                            <td>멍</td>
+	                            <td>멍</td>
+	                            <td>
+	                                <span class="s-btn-on" style="background-color:${boardColor};">수정</span>
+	                                <span class="s-btn-off">삭제</span>
+	                            </td>
+	                        </tr>
+	                    </table>
+                 	</form>
                     
                 </div>
                 <!-- 페이징 UI 시작 -->

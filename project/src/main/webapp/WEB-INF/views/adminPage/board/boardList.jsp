@@ -177,6 +177,7 @@
                                 <td class="bg-gray td-10">게시판그룹</td>
                                 <td class="td-15 p-lr3">
                                     <select name="boardGrp" id="boardGrp" class="sel-100">
+                                    	<option value="all">전사</option>
 		                    		</select>
                                 </td>
                                 <td class="bg-gray td-10">게시판코드</td>
@@ -473,7 +474,7 @@
 				window.location.href = 	"${pageContext.request.contextPath}/board/boardList";			
 			},
 			error	:function() {
-				alert("시스템 에러");			
+				alert("시스템 에러");
 			}
 		});
 	}
